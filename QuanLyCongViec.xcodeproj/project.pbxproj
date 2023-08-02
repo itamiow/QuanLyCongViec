@@ -7,15 +7,56 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7139749C2A701AC60023A87E /* UserDefaultServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7139749A2A701AC50023A87E /* UserDefaultServices.swift */; };
+		7139749D2A701AC60023A87E /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7139749B2A701AC60023A87E /* AuthService.swift */; };
+		7145DEF52A68F80100C943B7 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7145DEF42A68F80100C943B7 /* LoginViewController.swift */; };
+		7145DEF72A6925D700C943B7 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7145DEF62A6925D700C943B7 /* RegisterViewController.swift */; };
+		7145DEF92A692A5E00C943B7 /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7145DEF82A692A5E00C943B7 /* ForgotPasswordViewController.swift */; };
+		7145DF012A693C5200C943B7 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7145DF002A693C5200C943B7 /* HomeViewController.swift */; };
+		7145DF052A694B9900C943B7 /* MainTabbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7145DF042A694B9900C943B7 /* MainTabbarViewController.swift */; };
+		7145DF072A694C1200C943B7 /* CustomStyleTabBarContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7145DF062A694C1200C943B7 /* CustomStyleTabBarContentView.swift */; };
+		7145DF0F2A69734D00C943B7 /* CreateNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7145DF0E2A69734D00C943B7 /* CreateNoteViewController.swift */; };
+		7145DF182A697A8F00C943B7 /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7145DF172A697A8F00C943B7 /* UserViewController.swift */; };
+		7145DF1C2A69882500C943B7 /* ListWorkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7145DF1A2A69882500C943B7 /* ListWorkTableViewCell.swift */; };
+		7145DF1D2A69882500C943B7 /* ListWorkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7145DF1B2A69882500C943B7 /* ListWorkTableViewCell.xib */; };
+		7145DF1F2A6A2D5B00C943B7 /* ChangeUsernameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7145DF1E2A6A2D5B00C943B7 /* ChangeUsernameViewController.swift */; };
+		7145DF232A6A325900C943B7 /* ChangeNewPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7145DF222A6A325900C943B7 /* ChangeNewPasswordViewController.swift */; };
+		715095212A6BD59F007317BA /* GotoEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715095202A6BD59F007317BA /* GotoEditViewController.swift */; };
+		7150954A2A6D35A9007317BA /* ManagerWorkServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715095492A6D35A9007317BA /* ManagerWorkServices.swift */; };
+		7150954E2A6D7814007317BA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7150954D2A6D7813007317BA /* GoogleService-Info.plist */; };
+		71D018932A7564F5003C60D5 /* ScreenSkipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D018922A7564F5003C60D5 /* ScreenSkipViewController.swift */; };
+		71D018952A7565A2003C60D5 /* ScreenLesgoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D018942A7565A2003C60D5 /* ScreenLesgoViewController.swift */; };
 		71F9C70B2A683BAF007EAE78 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F9C70A2A683BAF007EAE78 /* AppDelegate.swift */; };
 		71F9C70D2A683BAF007EAE78 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F9C70C2A683BAF007EAE78 /* SceneDelegate.swift */; };
 		71F9C70F2A683BAF007EAE78 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F9C70E2A683BAF007EAE78 /* ViewController.swift */; };
 		71F9C7122A683BAF007EAE78 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71F9C7102A683BAF007EAE78 /* Main.storyboard */; };
 		71F9C7142A683BB0007EAE78 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 71F9C7132A683BB0007EAE78 /* Assets.xcassets */; };
 		71F9C7172A683BB0007EAE78 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71F9C7152A683BB0007EAE78 /* LaunchScreen.storyboard */; };
+		71F9C7222A683CC2007EAE78 /* extension + UIcolor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F9C7212A683CC2007EAE78 /* extension + UIcolor.swift */; };
+		91262E6E64F9745F295E9CE8 /* Pods_QuanLyCongViec.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C0DE9D91AEC3CF7180E6F35 /* Pods_QuanLyCongViec.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		174BDB8B737D5540A75C5878 /* Pods-QuanLyCongViec.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuanLyCongViec.debug.xcconfig"; path = "Target Support Files/Pods-QuanLyCongViec/Pods-QuanLyCongViec.debug.xcconfig"; sourceTree = "<group>"; };
+		7139749A2A701AC50023A87E /* UserDefaultServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultServices.swift; sourceTree = "<group>"; };
+		7139749B2A701AC60023A87E /* AuthService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		7145DEF42A68F80100C943B7 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		7145DEF62A6925D700C943B7 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		7145DEF82A692A5E00C943B7 /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
+		7145DF002A693C5200C943B7 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		7145DF042A694B9900C943B7 /* MainTabbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabbarViewController.swift; sourceTree = "<group>"; };
+		7145DF062A694C1200C943B7 /* CustomStyleTabBarContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomStyleTabBarContentView.swift; sourceTree = "<group>"; };
+		7145DF0E2A69734D00C943B7 /* CreateNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNoteViewController.swift; sourceTree = "<group>"; };
+		7145DF172A697A8F00C943B7 /* UserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
+		7145DF1A2A69882500C943B7 /* ListWorkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListWorkTableViewCell.swift; sourceTree = "<group>"; };
+		7145DF1B2A69882500C943B7 /* ListWorkTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListWorkTableViewCell.xib; sourceTree = "<group>"; };
+		7145DF1E2A6A2D5B00C943B7 /* ChangeUsernameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeUsernameViewController.swift; sourceTree = "<group>"; };
+		7145DF222A6A325900C943B7 /* ChangeNewPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeNewPasswordViewController.swift; sourceTree = "<group>"; };
+		715095202A6BD59F007317BA /* GotoEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GotoEditViewController.swift; sourceTree = "<group>"; };
+		715095492A6D35A9007317BA /* ManagerWorkServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerWorkServices.swift; sourceTree = "<group>"; };
+		7150954D2A6D7813007317BA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		71D018922A7564F5003C60D5 /* ScreenSkipViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenSkipViewController.swift; sourceTree = "<group>"; };
+		71D018942A7565A2003C60D5 /* ScreenLesgoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenLesgoViewController.swift; sourceTree = "<group>"; };
 		71F9C7072A683BAF007EAE78 /* QuanLyCongViec.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QuanLyCongViec.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		71F9C70A2A683BAF007EAE78 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		71F9C70C2A683BAF007EAE78 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -24,6 +65,9 @@
 		71F9C7132A683BB0007EAE78 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		71F9C7162A683BB0007EAE78 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		71F9C7182A683BB0007EAE78 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		71F9C7212A683CC2007EAE78 /* extension + UIcolor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "extension + UIcolor.swift"; sourceTree = "<group>"; };
+		8C0DE9D91AEC3CF7180E6F35 /* Pods_QuanLyCongViec.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QuanLyCongViec.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C64E6D520E63EAAD007014D5 /* Pods-QuanLyCongViec.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuanLyCongViec.release.xcconfig"; path = "Target Support Files/Pods-QuanLyCongViec/Pods-QuanLyCongViec.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +75,103 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				91262E6E64F9745F295E9CE8 /* Pods_QuanLyCongViec.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7145DEF22A68F7C300C943B7 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				7145DEF42A68F80100C943B7 /* LoginViewController.swift */,
+				7145DEF82A692A5E00C943B7 /* ForgotPasswordViewController.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		7145DEF32A68F7DA00C943B7 /* Register */ = {
+			isa = PBXGroup;
+			children = (
+				7145DEF62A6925D700C943B7 /* RegisterViewController.swift */,
+			);
+			path = Register;
+			sourceTree = "<group>";
+		};
+		7145DF022A693C5800C943B7 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				7145DF0C2A69727D00C943B7 /* HomeViewController */,
+				7145DF0D2A69729400C943B7 /* CreateNoteViewController */,
+				7145DF102A69737E00C943B7 /* User */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		7145DF032A694A0800C943B7 /* MainTabbar */ = {
+			isa = PBXGroup;
+			children = (
+				7145DF042A694B9900C943B7 /* MainTabbarViewController.swift */,
+				7145DF062A694C1200C943B7 /* CustomStyleTabBarContentView.swift */,
+			);
+			path = MainTabbar;
+			sourceTree = "<group>";
+		};
+		7145DF0C2A69727D00C943B7 /* HomeViewController */ = {
+			isa = PBXGroup;
+			children = (
+				7145DF192A6987E700C943B7 /* Cell */,
+				7145DF002A693C5200C943B7 /* HomeViewController.swift */,
+				715095202A6BD59F007317BA /* GotoEditViewController.swift */,
+			);
+			path = HomeViewController;
+			sourceTree = "<group>";
+		};
+		7145DF0D2A69729400C943B7 /* CreateNoteViewController */ = {
+			isa = PBXGroup;
+			children = (
+				7145DF0E2A69734D00C943B7 /* CreateNoteViewController.swift */,
+			);
+			path = CreateNoteViewController;
+			sourceTree = "<group>";
+		};
+		7145DF102A69737E00C943B7 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				7145DF172A697A8F00C943B7 /* UserViewController.swift */,
+				7145DF1E2A6A2D5B00C943B7 /* ChangeUsernameViewController.swift */,
+				7145DF222A6A325900C943B7 /* ChangeNewPasswordViewController.swift */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
+		7145DF192A6987E700C943B7 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				7145DF1A2A69882500C943B7 /* ListWorkTableViewCell.swift */,
+				7145DF1B2A69882500C943B7 /* ListWorkTableViewCell.xib */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		715095482A6D3575007317BA /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				715095492A6D35A9007317BA /* ManagerWorkServices.swift */,
+				7139749B2A701AC60023A87E /* AuthService.swift */,
+				7139749A2A701AC50023A87E /* UserDefaultServices.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		71F9C6FE2A683BAF007EAE78 = {
 			isa = PBXGroup;
 			children = (
 				71F9C7092A683BAF007EAE78 /* QuanLyCongViec */,
 				71F9C7082A683BAF007EAE78 /* Products */,
+				7406D1296D37E5AA226EF028 /* Pods */,
+				CF0CFFA4CCBB6EBF70B7B3B9 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,6 +186,13 @@
 		71F9C7092A683BAF007EAE78 /* QuanLyCongViec */ = {
 			isa = PBXGroup;
 			children = (
+				71F9C7212A683CC2007EAE78 /* extension + UIcolor.swift */,
+				715095482A6D3575007317BA /* Services */,
+				71F9C71E2A683BBA007EAE78 /* Screen */,
+				7145DEF22A68F7C300C943B7 /* Login */,
+				7145DEF32A68F7DA00C943B7 /* Register */,
+				7145DF032A694A0800C943B7 /* MainTabbar */,
+				7145DF022A693C5800C943B7 /* Home */,
 				71F9C70A2A683BAF007EAE78 /* AppDelegate.swift */,
 				71F9C70C2A683BAF007EAE78 /* SceneDelegate.swift */,
 				71F9C70E2A683BAF007EAE78 /* ViewController.swift */,
@@ -63,8 +200,35 @@
 				71F9C7132A683BB0007EAE78 /* Assets.xcassets */,
 				71F9C7152A683BB0007EAE78 /* LaunchScreen.storyboard */,
 				71F9C7182A683BB0007EAE78 /* Info.plist */,
+				7150954D2A6D7813007317BA /* GoogleService-Info.plist */,
 			);
 			path = QuanLyCongViec;
+			sourceTree = "<group>";
+		};
+		71F9C71E2A683BBA007EAE78 /* Screen */ = {
+			isa = PBXGroup;
+			children = (
+				71D018922A7564F5003C60D5 /* ScreenSkipViewController.swift */,
+				71D018942A7565A2003C60D5 /* ScreenLesgoViewController.swift */,
+			);
+			path = Screen;
+			sourceTree = "<group>";
+		};
+		7406D1296D37E5AA226EF028 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				174BDB8B737D5540A75C5878 /* Pods-QuanLyCongViec.debug.xcconfig */,
+				C64E6D520E63EAAD007014D5 /* Pods-QuanLyCongViec.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		CF0CFFA4CCBB6EBF70B7B3B9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8C0DE9D91AEC3CF7180E6F35 /* Pods_QuanLyCongViec.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,9 +238,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 71F9C71B2A683BB0007EAE78 /* Build configuration list for PBXNativeTarget "QuanLyCongViec" */;
 			buildPhases = (
+				9B6A6A29E71D378986F20A68 /* [CP] Check Pods Manifest.lock */,
 				71F9C7032A683BAF007EAE78 /* Sources */,
 				71F9C7042A683BAF007EAE78 /* Frameworks */,
 				71F9C7052A683BAF007EAE78 /* Resources */,
+				1B1C14D9C3F09EA88C9A6E8C /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -125,7 +291,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7145DF1D2A69882500C943B7 /* ListWorkTableViewCell.xib in Resources */,
 				71F9C7172A683BB0007EAE78 /* LaunchScreen.storyboard in Resources */,
+				7150954E2A6D7814007317BA /* GoogleService-Info.plist in Resources */,
 				71F9C7142A683BB0007EAE78 /* Assets.xcassets in Resources */,
 				71F9C7122A683BAF007EAE78 /* Main.storyboard in Resources */,
 			);
@@ -133,14 +301,74 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		1B1C14D9C3F09EA88C9A6E8C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-QuanLyCongViec/Pods-QuanLyCongViec-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-QuanLyCongViec/Pods-QuanLyCongViec-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-QuanLyCongViec/Pods-QuanLyCongViec-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9B6A6A29E71D378986F20A68 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-QuanLyCongViec-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		71F9C7032A683BAF007EAE78 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7145DF182A697A8F00C943B7 /* UserViewController.swift in Sources */,
+				7145DF072A694C1200C943B7 /* CustomStyleTabBarContentView.swift in Sources */,
+				7145DF0F2A69734D00C943B7 /* CreateNoteViewController.swift in Sources */,
+				7145DF052A694B9900C943B7 /* MainTabbarViewController.swift in Sources */,
+				7145DEF52A68F80100C943B7 /* LoginViewController.swift in Sources */,
+				7145DF232A6A325900C943B7 /* ChangeNewPasswordViewController.swift in Sources */,
+				7139749D2A701AC60023A87E /* AuthService.swift in Sources */,
 				71F9C70F2A683BAF007EAE78 /* ViewController.swift in Sources */,
+				71D018932A7564F5003C60D5 /* ScreenSkipViewController.swift in Sources */,
+				7145DF1F2A6A2D5B00C943B7 /* ChangeUsernameViewController.swift in Sources */,
 				71F9C70B2A683BAF007EAE78 /* AppDelegate.swift in Sources */,
+				7150954A2A6D35A9007317BA /* ManagerWorkServices.swift in Sources */,
+				7145DEF72A6925D700C943B7 /* RegisterViewController.swift in Sources */,
+				71F9C7222A683CC2007EAE78 /* extension + UIcolor.swift in Sources */,
+				7139749C2A701AC60023A87E /* UserDefaultServices.swift in Sources */,
+				7145DEF92A692A5E00C943B7 /* ForgotPasswordViewController.swift in Sources */,
 				71F9C70D2A683BAF007EAE78 /* SceneDelegate.swift in Sources */,
+				715095212A6BD59F007317BA /* GotoEditViewController.swift in Sources */,
+				7145DF1C2A69882500C943B7 /* ListWorkTableViewCell.swift in Sources */,
+				71D018952A7565A2003C60D5 /* ScreenLesgoViewController.swift in Sources */,
+				7145DF012A693C5200C943B7 /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,6 +510,7 @@
 		};
 		71F9C71C2A683BB0007EAE78 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 174BDB8B737D5540A75C5878 /* Pods-QuanLyCongViec.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -289,6 +518,9 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = QuanLyCongViec/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "App cần quyền truy cập Camera";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "App cần quyền truy cập Microphone";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "App cần quyền truy cập Photo";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -309,6 +541,7 @@
 		};
 		71F9C71D2A683BB0007EAE78 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C64E6D520E63EAAD007014D5 /* Pods-QuanLyCongViec.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -316,6 +549,9 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = QuanLyCongViec/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "App cần quyền truy cập Camera";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "App cần quyền truy cập Microphone";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "App cần quyền truy cập Photo";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
