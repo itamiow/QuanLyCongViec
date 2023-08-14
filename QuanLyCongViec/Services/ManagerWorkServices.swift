@@ -17,6 +17,7 @@ class WorkItem: Decodable {
     var remind: RemindType = .none
     var dateTime: Date?
     var note: String = ""
+    var isCompletion: Bool?
     enum CodingKeys: String, CodingKey {
         case id
         case name

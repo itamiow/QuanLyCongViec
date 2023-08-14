@@ -25,16 +25,15 @@ class ListWorkTableViewCell: UITableViewCell {
   
     var checkbox: Bool = false {
         didSet {
-                if !checkbox {
-                    checkworkImage.image = UIImage(named: "dry-clean")
-                    workStatusLabel.text = "Chưa hoàn thành"
-                    myView.backgroundColor = UIColor.white
-                } else {
-                    checkworkImage.image = UIImage(named: "checkmark")
-                    workStatusLabel.text = "Đã hoàn thành"
-                    myView.backgroundColor = UIColor(hex: "AFFFB9")
-                }
-            
+            if !checkbox {
+                checkworkImage.image = UIImage(named: "dry-clean")
+                workStatusLabel.text = "Chưa hoàn thành"
+                myView.backgroundColor = UIColor.white
+            } else {
+                checkworkImage.image = UIImage(named: "checkmark")
+                workStatusLabel.text = "Đã hoàn thành"
+                myView.backgroundColor = UIColor(hex: "AFFFB9")
+            }
         }
     }
     
