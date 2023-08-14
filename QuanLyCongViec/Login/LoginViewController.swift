@@ -7,20 +7,23 @@
 
 import UIKit
 import FirebaseAuth
-
+import FirebaseFirestore
 class LoginViewController: UIViewController {
     
     @IBOutlet weak var loginButton: UIButton!
     
     @IBOutlet weak var yourEmailTextField: UITextField!
-    @IBOutlet weak var yourPassword: UITextField!
+    @IBOutlet weak var yourPasswordTexField: UITextField!
+    let dataStore = Firestore.firestore()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loginButton.layer.cornerRadius = 10
+        loginButton.layer.cornerRadius = self.loginButton.frame.height/2
         loginButton.layer.borderWidth = 2
         loginButton.layer.borderColor = UIColor.white.cgColor
         navigationController?.isNavigationBarHidden = true
+        yourEmailTextField.text = "quangvien@gmail.com"
+        yourPasswordTexField.text = "123123"
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -39,13 +42,12 @@ class LoginViewController: UIViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let forgotPasswordVC = storyboard.instantiateViewController(withIdentifier: "ForgotPasswordViewController") as! ForgotPasswordViewController
         navigationController?.pushViewController(forgotPasswordVC, animated: true)
-        
     }
     
     @IBAction func didTapLogin(_ sender: UIButton) {
-        let email = "quangvien92@gmail.com"//yourEmailTextField.text ?? ""
-        let password = "123123"//yourPassword.text ?? ""
-        
+        let email = yourEmailTextField.text ?? ""
+        let password = yourPasswordTexField.text ?? ""
+       
         let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
         let emailPredicate = NSPredicate(format:"SELF MATCHES %@", emailRegex)
         
@@ -113,8 +115,7 @@ class LoginViewController: UIViewController {
   
     func showAlert(message:String) {
         let alert = UIAlertController(title: "Thông báo!", message: message, preferredStyle: .alert)
-        let actionOK = UIAlertAction(title: "OK", style: .default)
-        alert.addAction(actionOK)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
         self.present(alert, animated: true, completion: nil)
     }
     

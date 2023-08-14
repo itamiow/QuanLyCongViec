@@ -11,6 +11,7 @@ import FirebaseFirestore
 
 class EditViewController: UIViewController {
     
+    @IBOutlet weak var saveButton: UIButton!
     
     @IBOutlet weak var nameWorkTextField: UITextField!
     
@@ -25,67 +26,61 @@ class EditViewController: UIViewController {
     @IBOutlet weak var datePickerView: UIDatePicker!
     
     @IBOutlet weak var noteTexView: UITextView!
+    
     var model: WorkItem?
-    var models = [MyRemind]()
     
     let prioritizeDropdown = DropDown()
     let remindDropdown = DropDown()
     var dataPrioritize: [String] = ["Thấp", "Trung bình", "Cao"]
     var dataRemind: [String] = ["Không có nhắc nhỡ nào", "Báo trước 15p", "Báo trước 20p", "Báo trước 25p", "Báo trước 30p"]
     
-    
-    let dataStore = Firestore.firestore()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.isNavigationBarHidden = false
-        let barButton = UIBarButtonItem(title: "Lưu", style: .plain, target: self, action: #selector(didTapbarbutton))
-        navigationItem.rightBarButtonItem = barButton
-      
+        config()
         setupPrioritize()
         setupTime()
-        config()
+        saveButton.layer.cornerRadius = self.saveButton.frame.height/2
+        saveButton.layer.borderWidth = 2
+        saveButton.layer.borderColor = UIColor.white.cgColor
+        prioritizeView.layer.cornerRadius = 5
+        remindView.layer.cornerRadius = 5
+        dateView.layer.cornerRadius = 5
+        noteTexView.layer.cornerRadius = 5
     }
     
-    @objc func didTapbarbutton() {
-        
-
+    @IBAction func didTapSave(_ sender: UIButton) {
         let namework = nameWorkTextField.text ?? ""
         let prioritize = prioritizeLabel.text ?? ""
         let remind = remindLabel.text ?? ""
         let note = noteTexView.text ?? ""
         let dateTime = datePickerView.date
-
-
+        
+        let dataStore = Firestore.firestore()
         if namework.isEmpty || prioritize.isEmpty || remind.isEmpty || note.isEmpty {
             let alert = UIAlertController(title: "Lỗi", message: "Hãy nhập thông tin của bạn", preferredStyle: .alert)
-            let actionOK = UIAlertAction(title: "OK", style: .default)
-            alert.addAction(actionOK)
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
             self.present(alert, animated: true, completion: nil)
         } else {
-
-            dataStore.collection("works").getDocuments(completion: { (querySnapshot, err) in
-                if let err = err {
-                    print("Error getting documents: \(err)")
-                }else{
-                    for document in querySnapshot!.documents {
-                        if let documentId = document.data()["id"] as? String, let modelId = self.model?.id, documentId == modelId {
-                            self.dataStore.collection("works").document(document.documentID).updateData(["name": namework,
-                                                                                                         "prioritize": prioritize,
-                                                                                                         "remind": remind,
-                                                                                                         "note": note,
-                                                                                                         "dateTime": dateTime,
-                                                                                                         "id": modelId
-                                                                                                        ])
-                        }
-                    }
+            dataStore.collection("works")
+                .document(model?.id ?? "")
+                .updateData(["name": namework,
+                             "prioritize": prioritize,
+                             "remind": remind,
+                             "note": note,
+                             "dateTime": dateTime]) { error in
+                if let err = error {
+                    print("Error adding document: \(err)")
+                } else {
+                     
                 }
-            })
+            }
         }
-
-        let storyboar = UIStoryboard(name: "Main", bundle: nil)
-        let homeVC = storyboar.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
-        navigationController?.pushViewController(homeVC, animated: true)
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let gotoHomeVC = storyboard.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
+        navigationController?.pushViewController(gotoHomeVC, animated: true)
+        gotoHomeVC.navigationItem.hidesBackButton = true
+        setupRemind()
     }
     
     func setupPrioritize() {
@@ -116,6 +111,18 @@ class EditViewController: UIViewController {
         remindDropdown.selectionAction = { (index: Int, item: String) in
             self.remindLabel.text = self.dataRemind[index]
             self.remindLabel.textColor = .black
+            if item == "Không có nhắc nhở nào" {
+                self.datePickerView.date = self.datePickerView.date
+            }else if item == "Báo trước 15p" {
+                self.datePickerView.date = Date().addingTimeInterval(900)
+            } else if item == "Báo trước 20p" {
+                self.datePickerView.date = Date().addingTimeInterval(1200)
+            } else if item == "Báo trước 25p" {
+                self.datePickerView.date = Date().addingTimeInterval(1500)
+            } else if item == "Báo trước 30p" {
+                self.datePickerView.date = Date().addingTimeInterval(1800)
+            }
+            self.setupRemind()
         }
     }
     
@@ -127,22 +134,38 @@ class EditViewController: UIViewController {
         remindDropdown.show()
     }
     
-    
-    
     func config() {
         nameWorkTextField.text = model?.name
         noteTexView.text = model?.note
         remindLabel.text = model?.remind.rawValue
         prioritizeLabel.text = model?.prioritize.rawValue
-        
-        let dateTime = model?.dateTime
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd/MM/YYYY at hh:mm"
-        formatter.dateStyle = .full
-        formatter.timeStyle = .short
-        formatter.timeZone = TimeZone(identifier: "GTC + 7")
         datePickerView.date = model?.dateTime ?? Date()
     }
     
+    func setupRemind() {
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound], completionHandler: {success, error in
+            if success {
+                self.notifacation()
+            } else if error != nil {
+                print("error occured")
+            }
+        })
+    }
+    func notifacation() {
+        let content = UNMutableNotificationContent()
+        content.title = "Thông báo"
+        content.sound = .default
+        content.body = "Bạn có 1 nhắc nhở"
+        DispatchQueue.main.async {
+            let tagetDate = self.datePickerView.date
+            let trigger = UNCalendarNotificationTrigger(dateMatching: Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: tagetDate), repeats: false)
+            let request = UNNotificationRequest(identifier: "Main", content: content, trigger: trigger)
+            UNUserNotificationCenter.current().add(request, withCompletionHandler: { error in
+                if error != nil {
+                    print("something went wrong")
+                }
+            })
+        }
+    }
 }
     

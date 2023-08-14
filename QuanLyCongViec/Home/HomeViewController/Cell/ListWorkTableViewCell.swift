@@ -15,6 +15,7 @@ class ListWorkTableViewCell: UITableViewCell {
     
     @IBOutlet weak var nameworkLable: UILabel!
     @IBOutlet weak var noteLable: UILabel!
+    @IBOutlet weak var prioritizeImage: UIImageView!
     @IBOutlet weak var prioritizeLable: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var remindLable: UILabel!
@@ -22,10 +23,23 @@ class ListWorkTableViewCell: UITableViewCell {
     @IBOutlet weak var checkworkImage: UIImageView!
     @IBOutlet weak var workStatusLabel: UILabel!
   
+    var checkbox: Bool = false {
+        didSet {
+                if !checkbox {
+                    checkworkImage.image = UIImage(named: "dry-clean")
+                    workStatusLabel.text = "Chưa hoàn thành"
+                    myView.backgroundColor = UIColor.white
+                } else {
+                    checkworkImage.image = UIImage(named: "checkmark")
+                    workStatusLabel.text = "Đã hoàn thành"
+                    myView.backgroundColor = UIColor(hex: "AFFFB9")
+                }
+            
+        }
+    }
     
-    var checkbox: Bool = false
     var didTapEdit: (() -> Void)?
-    
+    var didTapCheckwork: (() -> Void)?
   
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -43,29 +57,29 @@ class ListWorkTableViewCell: UITableViewCell {
     
     
     @IBAction func didTapCheckwork(_ sender: UIButton) {
-//        let attributeString: NSMutableAttributedString = NSMutableAttributedString(string: nameWorkLable.text ?? "No title")
-//        attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSRange(location: 0, length: attributeString.length))
-        checkbox = !checkbox
-        if checkbox {
-            checkworkImage.image = UIImage(named: "dry-clean")
-            workStatusLabel.text = "Chưa hoàn thành"
-            myView.backgroundColor = UIColor.white
-//            nameWorkLable.attributedText = attributeString
-        } else {
-            checkworkImage.image = UIImage(named: "checkmark")
-            workStatusLabel.text = "Đã hoàn thành"
-            myView.backgroundColor = UIColor(hex: "AFFFB9")
-//            nameWorkLable.attributedText = attributeString
-        }
-        
+        didTapCheckwork?()
     }
     
     func configCell(_ model: WorkItem) {
-        nameworkLable.text = "Tên công việc: \(model.name)"
+        nameworkLable.text = (model.name)
         noteLable.text = "Ghi chú: \(model.note)"
         remindLable.text = "Nhắc nhở: \(model.remind.rawValue)"
-        prioritizeLable.text = "Mức độ ưu tiên: \(model.prioritize.rawValue)"
 
+        switch model.prioritize {
+        case .low:
+            self.prioritizeImage.image = UIImage(named: "orengi")
+            prioritizeLable.text = "Mức độ ưu tiên: Thấp"
+        case .medium:
+            self.prioritizeImage.image = UIImage(named: "green")
+            prioritizeLable.text = "Mức độ ưu tiên: Trung bình"
+        case .hight:
+            self.prioritizeImage.image = UIImage(named: "red")
+            prioritizeLable.text = "Mức độ ưu tiên: Cao"
+        case .none:
+            self.prioritizeImage.image = UIImage(named: "round")
+            prioritizeLable.text = "Mức độ ưu tiên: Không có"
+        }
+      
         let date = model.dateTime
         let formatter = DateFormatter()
         formatter.dateFormat = "dd/MM/YYYY at hh:mm"

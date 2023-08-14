@@ -22,37 +22,36 @@ class RegisterViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        registerButton.layer.cornerRadius = 10
+        registerButton.layer.cornerRadius = self.registerButton.frame.height/2
         registerButton.layer.borderWidth = 2
         registerButton.layer.borderColor = UIColor.white.cgColor
-        self.title = "Đăng ký tài khoản"
-        navigationController?.isNavigationBarHidden = false
+        navigationController?.isNavigationBarHidden = true
     }
     
     @IBAction func didTapRegister(_ sender: UIButton) {
-        let username = nameTextField.text ?? ""
+        let userName = nameTextField.text ?? ""
         let email = emailTextField.text ?? ""
         let password = passwordTextField.text ?? ""
         let confirmPassword = confirmPasswordTextField.text ?? ""
         let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
         let emailPredicate = NSPredicate(format:"SELF MATCHES %@", emailRegex)
         
-        if username.isEmpty && email.isEmpty && password.isEmpty && confirmPassword.isEmpty {
+        if userName.isEmpty && email.isEmpty && password.isEmpty && confirmPassword.isEmpty {
             let message = "Hãy nhập thông tin đầy đủ"
             showAlert(message: message)
             return
         }
-        if username.isEmpty {
+        if userName.isEmpty {
             let message = "Tên người dùng là cần thiết"
             showAlert(message: message)
             return
         }
-        if username.count < 2 {
+        if userName.count < 2 {
             let message = "Tên người dùng phải có ít nhất 2 kí tự"
             showAlert(message: message)
             return
         }
-        if username.count > 30 {
+        if userName.count > 30 {
             let message = "Tên nguời dùng không được quá 40 kí tự"
             showAlert(message: message)
             return
@@ -90,10 +89,10 @@ class RegisterViewController: UIViewController {
             return
         }
         
-        handleRegister(username: username, email: email, password: password, confirmpassword: confirmPassword)
+        handleRegister(userName: userName, email: email, password: password, confirmpassword: confirmPassword)
     }
     
-    private func handleRegister(username: String, email: String, password: String, confirmpassword: String) {
+    private func handleRegister(userName: String, email: String, password: String, confirmpassword: String) {
         registerButton.isEnabled = false
         registerButton.setTitle("Xin chờ...", for: .normal)
         if password != confirmpassword {
@@ -123,7 +122,7 @@ class RegisterViewController: UIViewController {
                 let showAlert = UIAlertController(title: "Thông báo!", message: "Đăng ký thành công", preferredStyle: .alert)
                 showAlert.addAction(UIAlertAction(title: "OK", style: .default) {_ in
                     self.gotoLogin()
-                    self.handleData(username: username, email: email, password: password, confirmpassword: confirmpassword)
+                    self.handleData(userName: userName, email: email, password: password, confirmpassword: confirmpassword)
                 })
                 self.present(showAlert, animated: true)
             }
@@ -134,7 +133,7 @@ class RegisterViewController: UIViewController {
         var a = false
         if passwordTextField.text != confirmPasswordTextField.text {
             let alertController = UIAlertController(title: "Lỗi", message: "Mật khẩu không khớp", preferredStyle: .alert)
-            let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+            let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
             alertController.addAction(defaultAction)
             self.present(alertController, animated: true, completion: nil)
         } else {
@@ -143,31 +142,21 @@ class RegisterViewController: UIViewController {
         return a
     }
     
-    func handleData(username: String, email: String, password: String, confirmpassword: String) {
+    func handleData(userName: String, email: String, password: String, confirmpassword: String) {
         dataStore.collection("users").document(email).setData([
-            "users": username,
+            "usersName": userName,
             "email": email,
-            "password": password,
-            "confirmpassword": confirmpassword,
         ]) { err in
             if let err = err {
                 print("Error adding document: \(err)")
             } else {
-        }
-    }
-        dataStore.collection("users").document(email).getDocument(completion: { (querySnapshot, err) in
-            if let err = err {
-                print("Error getting documents: \(err)")
-            } else {
-                print("\(querySnapshot!.documentID) => \(querySnapshot!.data())")
             }
-        })
+        }
     }
     
     func showAlert(message: String) {
         let alert = UIAlertController(title: "Thông báo!", message: message, preferredStyle: .alert)
-        let actionOK = UIAlertAction(title: "OK", style: .default)
-        alert.addAction(actionOK)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
         self.present(alert, animated: true, completion: nil)
     }
     func gotoLogin() {
@@ -179,5 +168,10 @@ class RegisterViewController: UIViewController {
         window.rootViewController = nv
         window.makeKeyAndVisible()
     }
+    
+    @IBAction func didTapLogin(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     
 }

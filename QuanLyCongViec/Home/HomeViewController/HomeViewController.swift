@@ -11,33 +11,35 @@ import FirebaseFirestore
 class HomeViewController: UIViewController {
     
     @IBOutlet weak var myTableView: UITableView!
+    @IBOutlet weak var emptyView: UIView!
+
     var listItem: [WorkItem] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        emptyView.isHidden = true
         myTableView.delegate = self
         myTableView.dataSource = self
         myTableView.register(UINib(nibName:"ListWorkTableViewCell", bundle: nil), forCellReuseIdentifier: "ListWorkTableViewCell")
         myTableView.reloadData()
-       
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        fetchData()
+         fetchData()
     }
     
-    func fetchData() {
+    private func fetchData() {
         ManagerWorkServices.shared.getListWork {[weak self] response in
             print(response)
             self?.listItem = response
             self?.myTableView.reloadData()
         }
     }
-    
-  
+   
 }
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        emptyView.isHidden = !listItem.isEmpty
         return listItem.count
     }
     
@@ -50,6 +52,10 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             let editVC = storyboard.instantiateViewController(withIdentifier: "EditViewController") as! EditViewController
             editVC.model = item
             self?.navigationController?.pushViewController(editVC, animated: true)
+        }
+        
+        cell.didTapCheckwork = { [weak self] in
+            cell.checkbox = !cell.checkbox
         }
         return cell
     }

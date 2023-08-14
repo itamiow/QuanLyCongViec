@@ -8,24 +8,30 @@
 import UIKit
 import Photos
 import FirebaseAuth
+import FirebaseFirestore
 
 class UserViewController: UIViewController {
+    
+    @IBOutlet weak var logoutButton: UIButton!
     @IBOutlet weak var avatarImage: UIImageView!
     @IBOutlet weak var cameraView: UIView!
     @IBOutlet weak var cameraImage: UIImageView!
     
     @IBOutlet weak var userNameView: UIView!
+    @IBOutlet weak var userNameLabel: UILabel!
+    
     @IBOutlet weak var emailView: UIView!
+    @IBOutlet weak var emailLabel: UILabel!
+    
     @IBOutlet weak var changePasswordView: UIView!
     @IBOutlet weak var logoutView: UIView!
-    
-    @IBOutlet weak var usernameLabel: UILabel!
-    
+    let dataStore = Firestore.firestore()
     var imagePicker: UIImagePickerController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setUp()
+      
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -33,11 +39,13 @@ class UserViewController: UIViewController {
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.avatarImage.image = UIImage(named: "user")
+      
         avatarImage.layer.cornerRadius = self.avatarImage.layer.bounds.height/2
         avatarImage.clipsToBounds = true
         cameraView.layer.cornerRadius = self.cameraView.layer.bounds.height/2
         view.layoutIfNeeded()
+        
+        handleData()
     }
     
     func setUp() {
@@ -57,9 +65,10 @@ class UserViewController: UIViewController {
         changePasswordView.layer.borderWidth = 1
         changePasswordView.layer.borderColor = UIColor.black.cgColor
         
-        logoutView.layer.cornerRadius = 10
-        logoutView.layer.borderWidth = 1
-        logoutView.layer.borderColor = UIColor.black.cgColor
+        logoutButton.layer.cornerRadius = self.logoutButton.frame.height/2
+        logoutView.layer.cornerRadius = self.logoutView.frame.height/2
+        logoutView.layer.borderWidth = 2
+        logoutView.layer.borderColor = UIColor.white.cgColor
     }
     
     func openSetting() {
@@ -135,7 +144,6 @@ class UserViewController: UIViewController {
         navigationController?.pushViewController(changeNewPasswordVC, animated: true)
     }
     
-    
     @IBAction func didTapLogout(_ sender: UIButton) {
         let firebaseAuth = Auth.auth()
         do {
@@ -144,7 +152,6 @@ class UserViewController: UIViewController {
         } catch {
             print("Lỗi đăng xuất")
         }
-        
     }
     func gotoLogin(){
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -156,6 +163,22 @@ class UserViewController: UIViewController {
         window.makeKeyAndVisible()
     }
     
+    func handleData() {
+        let docRef = self.dataStore.collection("users")
+        docRef.getDocuments {(snapshot, error) in
+            if let error = error {
+                    print("Error getting documents: \(error)")
+                } else {
+                    for document in snapshot!.documents {
+                        let data = document.data()
+                        if let email = data["email"] as? String, let usersName = data["usersName"] as? String {
+                            self.emailLabel.text = email
+                            self.userNameLabel.text = usersName
+                        }
+                    }
+                }
+        }
+    }
 }
 extension UserViewController: UIImagePickerControllerDelegate,UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {

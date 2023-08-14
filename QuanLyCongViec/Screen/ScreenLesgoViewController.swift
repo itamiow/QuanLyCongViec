@@ -11,7 +11,7 @@ class ScreenLesgoViewController: UIViewController {
     
     @IBOutlet weak var myView: UIView!
     
-    @IBOutlet weak var LesgoView: UIView!
+    @IBOutlet weak var startButton: UIButton!
     
     public var screenWidth: CGFloat {
         return UIScreen.main.bounds.width
@@ -22,9 +22,9 @@ class ScreenLesgoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
       
-        LesgoView.layer.cornerRadius = 10
-        LesgoView.layer.borderColor = UIColor.black.cgColor
-        LesgoView.layer.borderWidth = 1
+        startButton.layer.cornerRadius = self.startButton.frame.height/2
+        startButton.layer.borderColor = UIColor.white.cgColor
+        startButton.layer.borderWidth = 2
         navigationController?.isNavigationBarHidden = true
         draw()
     }
@@ -43,23 +43,22 @@ class ScreenLesgoViewController: UIViewController {
         myView.layer.addSublayer(shapeLayer)
         
         
-        
-        let shapeLayer2: CAShapeLayer = CAShapeLayer()
-        let triangLayer2: CAShapeLayer = CAShapeLayer()
-        let path2 = UIBezierPath()
-        path2.move(to: CGPoint(x: screenWidth/2, y: 0))
-        path2.addLine(to: CGPoint(x: screenWidth, y: 0))
-        path2.addLine(to: CGPoint(x: screenWidth, y: screenHeight/2))
-        path2.addLine(to: CGPoint(x: screenWidth/2, y: (screenHeight/2) - 50))
-        triangLayer2.fillColor = UIColor(hex: "#BC0F60")?.cgColor
-        triangLayer2.path = path2.cgPath
-        shapeLayer2.insertSublayer(triangLayer2, at: 0)
-        myView.layer.addSublayer(shapeLayer2)
+        let shapeLayer1: CAShapeLayer = CAShapeLayer()
+        let triangLayer1: CAShapeLayer = CAShapeLayer()
+        let path1 = UIBezierPath()
+        path1.move(to: CGPoint(x: screenWidth/2, y: 0))
+        path1.addLine(to: CGPoint(x: screenWidth, y: 0))
+        path1.addLine(to: CGPoint(x: screenWidth, y: screenHeight/2))
+        path1.addLine(to: CGPoint(x: screenWidth/2, y: (screenHeight/2) - 50))
+        triangLayer1.fillColor = UIColor(hex: "#BC0F60")?.cgColor
+        triangLayer1.path = path1.cgPath
+        shapeLayer1.insertSublayer(triangLayer1, at: 0)
+        myView.layer.addSublayer(shapeLayer1)
         
         
     }
     
-    @IBAction func didTapLesgo(_ sender: UIButton) {
+    @IBAction func didTapStart(_ sender: UIButton) {
         UserDefaultService.shared.completedScrenn = true
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let LoginVC = storyboard.instantiateViewController(withIdentifier: "LoginViewController")

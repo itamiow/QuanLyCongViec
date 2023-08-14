@@ -21,7 +21,7 @@
 		7145DF1D2A69882500C943B7 /* ListWorkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7145DF1B2A69882500C943B7 /* ListWorkTableViewCell.xib */; };
 		7145DF1F2A6A2D5B00C943B7 /* ChangeUsernameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7145DF1E2A6A2D5B00C943B7 /* ChangeUsernameViewController.swift */; };
 		7145DF232A6A325900C943B7 /* ChangeNewPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7145DF222A6A325900C943B7 /* ChangeNewPasswordViewController.swift */; };
-		715095212A6BD59F007317BA /* GotoEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715095202A6BD59F007317BA /* GotoEditViewController.swift */; };
+		715095212A6BD59F007317BA /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715095202A6BD59F007317BA /* EditViewController.swift */; };
 		7150954A2A6D35A9007317BA /* ManagerWorkServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715095492A6D35A9007317BA /* ManagerWorkServices.swift */; };
 		7150954E2A6D7814007317BA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7150954D2A6D7813007317BA /* GoogleService-Info.plist */; };
 		71D018932A7564F5003C60D5 /* ScreenSkipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D018922A7564F5003C60D5 /* ScreenSkipViewController.swift */; };
@@ -52,7 +52,7 @@
 		7145DF1B2A69882500C943B7 /* ListWorkTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListWorkTableViewCell.xib; sourceTree = "<group>"; };
 		7145DF1E2A6A2D5B00C943B7 /* ChangeUsernameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeUsernameViewController.swift; sourceTree = "<group>"; };
 		7145DF222A6A325900C943B7 /* ChangeNewPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeNewPasswordViewController.swift; sourceTree = "<group>"; };
-		715095202A6BD59F007317BA /* GotoEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GotoEditViewController.swift; sourceTree = "<group>"; };
+		715095202A6BD59F007317BA /* EditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
 		715095492A6D35A9007317BA /* ManagerWorkServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerWorkServices.swift; sourceTree = "<group>"; };
 		7150954D2A6D7813007317BA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		71D018922A7564F5003C60D5 /* ScreenSkipViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenSkipViewController.swift; sourceTree = "<group>"; };
@@ -123,7 +123,7 @@
 			children = (
 				7145DF192A6987E700C943B7 /* Cell */,
 				7145DF002A693C5200C943B7 /* HomeViewController.swift */,
-				715095202A6BD59F007317BA /* GotoEditViewController.swift */,
+				715095202A6BD59F007317BA /* EditViewController.swift */,
 			);
 			path = HomeViewController;
 			sourceTree = "<group>";
@@ -365,7 +365,7 @@
 				7139749C2A701AC60023A87E /* UserDefaultServices.swift in Sources */,
 				7145DEF92A692A5E00C943B7 /* ForgotPasswordViewController.swift in Sources */,
 				71F9C70D2A683BAF007EAE78 /* SceneDelegate.swift in Sources */,
-				715095212A6BD59F007317BA /* GotoEditViewController.swift in Sources */,
+				715095212A6BD59F007317BA /* EditViewController.swift in Sources */,
 				7145DF1C2A69882500C943B7 /* ListWorkTableViewCell.swift in Sources */,
 				71D018952A7565A2003C60D5 /* ScreenLesgoViewController.swift in Sources */,
 				7145DF012A693C5200C943B7 /* HomeViewController.swift in Sources */,

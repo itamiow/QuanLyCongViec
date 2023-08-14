@@ -31,8 +31,8 @@ class WorkItem: Decodable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decode(String.self, forKey: .id)
         name = try container.decode(String.self, forKey: .name)
-        let rawPriority: String = (try? container.decode(String.self, forKey: .prioritize)) ?? ""
-        prioritize = PrioritizeType(rawValue: rawPriority) ?? .none
+        let rawPrioritize: String = (try? container.decode(String.self, forKey: .prioritize)) ?? ""
+        prioritize = PrioritizeType(rawValue: rawPrioritize) ?? .none
         let remindRawValue = (try? container.decode(String.self, forKey: .remind)) ?? ""
         remind = RemindType(rawValue: remindRawValue) ?? .none
         let timeStamp = try? container.decode(Timestamp.self, forKey: .dateTime)
@@ -54,9 +54,8 @@ extension WorkItem: Encodable {
     }
 }
 
-
 enum PrioritizeType: String {
-    case none = "Chọn mức độ"
+    case none = "Không có"
     case low = "Thấp"
     case medium = "Trung bình"
     case hight = "Cao"

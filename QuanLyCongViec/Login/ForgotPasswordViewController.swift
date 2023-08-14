@@ -17,9 +17,9 @@ class ForgotPasswordViewController: UIViewController {
         super.viewDidLoad()
         
         self.title = "Quên mật khẩu"
-        continueButton.layer.borderWidth = 2
+        continueButton.layer.cornerRadius = self.continueButton.frame.height/2
         continueButton.layer.borderColor = UIColor.white.cgColor
-        continueButton.layer.cornerRadius = 10
+        continueButton.layer.borderWidth = 2
         navigationController?.isNavigationBarHidden = false
     }
     
@@ -29,15 +29,13 @@ class ForgotPasswordViewController: UIViewController {
             guard let self = self else { return }
             if email.isEmpty {
                 let alert = UIAlertController(title: "Lỗi", message: "Hãy nhập email của bạn", preferredStyle: .alert)
-                let actionOK = UIAlertAction(title: "OK", style: .default)
-                alert.addAction(actionOK)
+                alert.addAction(UIAlertAction(title: "OK", style: .default))
                 self.present(alert, animated: true)
                 return
             }
             guard error == nil else {
                 let alert = UIAlertController(title: "Lỗi", message: "Email của bạn không đúng hoặc chưa được đăng ký", preferredStyle: .alert)
-                let actionOK = UIAlertAction(title: "OK", style: .default)
-                alert.addAction(actionOK)
+                alert.addAction(UIAlertAction(title: "OK", style: .default))
                 self.present(alert, animated: true)
                 return
             }

@@ -10,7 +10,7 @@ import UIKit
 class ScreenSkipViewController: UIViewController {
     
     @IBOutlet weak var myView: UIView!
-    @IBOutlet weak var skipView: UIView!
+    @IBOutlet weak var continueButton: UIButton!
     
     public var screenWidth: CGFloat {
         return UIScreen.main.bounds.width
@@ -22,9 +22,9 @@ class ScreenSkipViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         draw()
-        skipView.layer.cornerRadius = 10
-        skipView.layer.borderColor = UIColor.black.cgColor
-        skipView.layer.borderWidth = 1
+        continueButton.layer.cornerRadius = self.continueButton.frame.height/2
+        continueButton.layer.borderColor = UIColor.white.cgColor
+        continueButton.layer.borderWidth = 2
     }
     
     func draw() {
@@ -43,21 +43,21 @@ class ScreenSkipViewController: UIViewController {
         
         
         
-        let shapeLayer2: CAShapeLayer = CAShapeLayer()
-        let triangLayer2: CAShapeLayer = CAShapeLayer()
-        let path2 = UIBezierPath()
-        path2.move(to: CGPoint(x: screenWidth/2, y: 0))
-        path2.addLine(to: CGPoint(x: screenWidth, y: 0))
-        path2.addLine(to: CGPoint(x: screenWidth, y: screenHeight/2))
-        path2.addLine(to: CGPoint(x: screenWidth/2, y: (screenHeight/2) - 50))
-        triangLayer2.fillColor = UIColor(hex: "#0B5F4F")?.cgColor
-        triangLayer2.path = path2.cgPath
-        shapeLayer2.insertSublayer(triangLayer2, at: 0)
-        myView.layer.addSublayer(shapeLayer2)
+        let shapeLayer1: CAShapeLayer = CAShapeLayer()
+        let triangLayer1: CAShapeLayer = CAShapeLayer()
+        let path1 = UIBezierPath()
+        path1.move(to: CGPoint(x: screenWidth/2, y: 0))
+        path1.addLine(to: CGPoint(x: screenWidth, y: 0))
+        path1.addLine(to: CGPoint(x: screenWidth, y: screenHeight/2))
+        path1.addLine(to: CGPoint(x: screenWidth/2, y: (screenHeight/2) - 50))
+        triangLayer1.fillColor = UIColor(hex: "#0B5F4F")?.cgColor
+        triangLayer1.path = path1.cgPath
+        shapeLayer1.insertSublayer(triangLayer1, at: 0)
+        myView.layer.addSublayer(shapeLayer1)
     }
     
     
-    @IBAction func didTapSkip(_ sender: UIButton) {
+    @IBAction func didTapContinue(_ sender: UIButton) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let lesgoVC = storyboard.instantiateViewController(withIdentifier: "ScreenLesgoViewController") as! ScreenLesgoViewController
         navigationController?.pushViewController(lesgoVC, animated: true)

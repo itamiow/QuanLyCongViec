@@ -21,7 +21,7 @@ class MainTabbarViewController: ESTabBarController {
 
     lazy var nameWorkVC: UIViewController =  {
         let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "HomeViewController")
-        viewController.view.backgroundColor = UIColor(hex: "E0E6EF")
+        viewController.view.backgroundColor = UIColor(hex: "E3EFFF")
         viewController.tabBarItem = ESTabBarItem(CustomStyleTabBarContentView(),
                                                  title: "Công việc",
                                                  image: UIImage(named: "portfolio"),
@@ -33,7 +33,7 @@ class MainTabbarViewController: ESTabBarController {
     
     lazy var createNoteVC: UIViewController =  {
         let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "CreateNoteViewController")
-        viewController.view.backgroundColor = UIColor(hex: "E0E6EF")
+        viewController.view.backgroundColor = UIColor(hex: "E3EFFF")
         viewController.tabBarItem = ESTabBarItem(CustomStyleTabBarContentView(),
                                                  title: "Thêm công việc",
                                                  image: UIImage(named: "more"),
@@ -44,7 +44,7 @@ class MainTabbarViewController: ESTabBarController {
     
     lazy var userVC: UIViewController =  {
         let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "UserViewController")
-        viewController.view.backgroundColor = UIColor(hex: "E0E6EF")
+        viewController.view.backgroundColor = UIColor(hex: "E3EFFF")
         viewController.tabBarItem = ESTabBarItem(CustomStyleTabBarContentView(),
                                                  title: "Hồ sơ",
                                                  image: UIImage(named: "user"),
