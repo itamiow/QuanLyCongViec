@@ -2,8 +2,10 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -57,8 +59,7 @@
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4UZ-NZ-wAh">
                                         <rect key="frame" x="3" y="3" width="30" height="30"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <connections>
                                             <action selector="gotoEdit:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="QOn-Ef-l7h"/>
                                         </connections>
@@ -93,31 +94,32 @@
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qEj-MX-mbV">
                                 <rect key="frame" x="16" y="210" width="30" height="30"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <connections>
                                     <action selector="didTapCheckwork:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="J4t-Pw-HKq"/>
                                 </connections>
                             </button>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="round" translatesAutoresizingMaskIntoConstraints="NO" id="plf-d3-fag">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ty4-Pa-3Uu">
                                 <rect key="frame" x="16" y="49.666666666666664" width="24" height="23.999999999999993"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="24" id="eAU-Mj-vL9"/>
-                                    <constraint firstAttribute="width" constant="24" id="oTH-uI-zGh"/>
+                                    <constraint firstAttribute="width" constant="24" id="TNh-7b-MWn"/>
+                                    <constraint firstAttribute="height" constant="24" id="cG4-oy-Hed"/>
                                 </constraints>
-                            </imageView>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="Rua-qD-ikC" secondAttribute="trailing" constant="16" id="1C6-KW-Gny"/>
-                            <constraint firstItem="plf-d3-fag" firstAttribute="centerY" secondItem="d7F-Rw-Qos" secondAttribute="centerY" id="2Jp-Vr-wDC"/>
                             <constraint firstItem="tWX-yt-hXD" firstAttribute="top" secondItem="d7F-Rw-Qos" secondAttribute="bottom" constant="16" id="5w0-wk-fVo"/>
+                            <constraint firstItem="ty4-Pa-3Uu" firstAttribute="centerY" secondItem="d7F-Rw-Qos" secondAttribute="centerY" id="6H6-Os-XLM"/>
                             <constraint firstItem="tWX-yt-hXD" firstAttribute="leading" secondItem="VOT-nX-wFB" secondAttribute="leading" constant="16" id="6uJ-Kw-fcz"/>
+                            <constraint firstItem="d7F-Rw-Qos" firstAttribute="leading" secondItem="ty4-Pa-3Uu" secondAttribute="trailing" constant="16" id="7Vk-lC-C10"/>
                             <constraint firstItem="Ode-Gz-1mT" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Ie2-N7-e3P" secondAttribute="bottom" constant="16" id="9rC-5R-HGh"/>
                             <constraint firstItem="eCX-uV-Y6r" firstAttribute="leading" secondItem="VOT-nX-wFB" secondAttribute="leading" constant="16" id="AWv-xp-sWr"/>
                             <constraint firstItem="Ode-Gz-1mT" firstAttribute="centerY" secondItem="qEj-MX-mbV" secondAttribute="centerY" id="AzE-wQ-uqK"/>
                             <constraint firstAttribute="trailing" secondItem="Ode-Gz-1mT" secondAttribute="trailing" constant="16" id="Cng-DB-kbw"/>
-                            <constraint firstItem="d7F-Rw-Qos" firstAttribute="leading" secondItem="plf-d3-fag" secondAttribute="trailing" constant="16" id="JKK-Or-T1L"/>
+                            <constraint firstItem="ty4-Pa-3Uu" firstAttribute="leading" secondItem="VOT-nX-wFB" secondAttribute="leading" constant="16" id="EKa-ay-Duz"/>
                             <constraint firstAttribute="trailing" secondItem="tWX-yt-hXD" secondAttribute="trailing" constant="16" id="KBC-2X-x6D"/>
                             <constraint firstItem="Rua-qD-ikC" firstAttribute="leading" secondItem="4CP-Mv-T8F" secondAttribute="trailing" constant="16" id="MsQ-T4-TI3"/>
                             <constraint firstAttribute="trailing" secondItem="Ie2-N7-e3P" secondAttribute="trailing" constant="16" id="Qsk-9C-3Fr"/>
@@ -128,7 +130,6 @@
                             <constraint firstItem="4CP-Mv-T8F" firstAttribute="top" secondItem="VOT-nX-wFB" secondAttribute="top" constant="16" id="cc8-Ty-HTl"/>
                             <constraint firstItem="xcc-gV-hIC" firstAttribute="leading" secondItem="VOT-nX-wFB" secondAttribute="leading" constant="16" id="dtt-FT-Mbz"/>
                             <constraint firstItem="eCX-uV-Y6r" firstAttribute="top" secondItem="tWX-yt-hXD" secondAttribute="bottom" constant="16" id="eZ5-Rn-Gwy"/>
-                            <constraint firstItem="plf-d3-fag" firstAttribute="leading" secondItem="VOT-nX-wFB" secondAttribute="leading" constant="16" id="fkO-XZ-4zN"/>
                             <constraint firstItem="Ie2-N7-e3P" firstAttribute="top" secondItem="eCX-uV-Y6r" secondAttribute="bottom" constant="16" id="gkq-uE-oj7"/>
                             <constraint firstAttribute="bottom" secondItem="xcc-gV-hIC" secondAttribute="bottom" constant="16" id="h4L-tM-qKc"/>
                             <constraint firstItem="qEj-MX-mbV" firstAttribute="trailing" secondItem="xcc-gV-hIC" secondAttribute="trailing" id="lyI-ct-Wjk"/>
@@ -153,11 +154,11 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="checkworkImage" destination="xcc-gV-hIC" id="wL9-HV-cl4"/>
+                <outlet property="colorPrioritizeView" destination="ty4-Pa-3Uu" id="SAl-1P-uYq"/>
                 <outlet property="editView" destination="Rua-qD-ikC" id="DFf-zU-kpN"/>
                 <outlet property="myView" destination="VOT-nX-wFB" id="ovh-pj-PnE"/>
                 <outlet property="nameworkLable" destination="4CP-Mv-T8F" id="nqG-p4-7Gg"/>
                 <outlet property="noteLable" destination="Ie2-N7-e3P" id="iqa-W3-Sxn"/>
-                <outlet property="prioritizeImage" destination="plf-d3-fag" id="3Xe-Hi-HC7"/>
                 <outlet property="prioritizeLable" destination="d7F-Rw-Qos" id="by8-TF-tie"/>
                 <outlet property="remindLable" destination="tWX-yt-hXD" id="LpI-pK-BXn"/>
                 <outlet property="timeLabel" destination="eCX-uV-Y6r" id="Ys1-Iq-5cl"/>
@@ -169,6 +170,8 @@
     <resources>
         <image name="dry-clean" width="512" height="512"/>
         <image name="edit" width="512" height="512"/>
-        <image name="round" width="512" height="512"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

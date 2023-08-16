@@ -10,9 +10,10 @@ pod 'FirebaseFirestore'
 pod 'FirebaseCore'
 pod 'FirebaseDatabase'
 pod 'FirebaseFirestoreSwift'
-
-pod 'KeychainSwift', '~> 20.0'
+pod 'IQKeyboardManagerSwift'
+pod 'KeychainSwift'
 pod 'DropDown'
+pod 'lottie-ios'
   # Pods for QuanLyCongViec
 
 end

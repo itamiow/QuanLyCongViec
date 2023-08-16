@@ -1,6 +1,5 @@
 //
 //  UserDefaultServices.swift
-//  TutorialProject
 //
 //  Created by USER on 09/06/2023.
 //
@@ -15,24 +14,25 @@ class UserDefaultService {
     private var standard = UserDefaults.standard
     
     private enum Keys: String {
-        case kCompletedScrenn
+        case Tutorial
     }
     
     private init() {
         
     }
 
-    var completedScrenn: Bool {
+    var completedTutorial: Bool {
         get {
-            return standard.bool(forKey: Keys.kCompletedScrenn.rawValue)
+            return standard.bool(forKey: Keys.Tutorial.rawValue)
         }
         set {
-            standard.set(newValue, forKey: Keys.kCompletedScrenn.rawValue)
+            standard.set(newValue, forKey: Keys.Tutorial.rawValue)
             standard.synchronize()
         }
     }
+    
     func clearAll() {
-        standard.removeObject(forKey: Keys.kCompletedScrenn.rawValue)
+        standard.removeObject(forKey: Keys.Tutorial.rawValue)
     }
     
 }

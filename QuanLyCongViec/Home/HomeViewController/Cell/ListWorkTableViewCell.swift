@@ -8,21 +8,22 @@
 import UIKit
 
 class ListWorkTableViewCell: UITableViewCell {
-
+    
     @IBOutlet weak var editView: UIView!
     
     @IBOutlet weak var myView: UIView!
     
     @IBOutlet weak var nameworkLable: UILabel!
     @IBOutlet weak var noteLable: UILabel!
-    @IBOutlet weak var prioritizeImage: UIImageView!
+    
+    @IBOutlet weak var colorPrioritizeView: UIView!
     @IBOutlet weak var prioritizeLable: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var remindLable: UILabel!
     
     @IBOutlet weak var checkworkImage: UIImageView!
     @IBOutlet weak var workStatusLabel: UILabel!
-  
+    
     var checkbox: Bool = false {
         didSet {
             if !checkbox {
@@ -39,13 +40,14 @@ class ListWorkTableViewCell: UITableViewCell {
     
     var didTapEdit: (() -> Void)?
     var didTapCheckwork: (() -> Void)?
-  
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         myView.layer.cornerRadius = 15
         editView.layer.cornerRadius = 10
+        colorPrioritizeView.layer.cornerRadius = self.colorPrioritizeView.frame.height/2
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
@@ -63,28 +65,26 @@ class ListWorkTableViewCell: UITableViewCell {
         nameworkLable.text = (model.name)
         noteLable.text = "Ghi chú: \(model.note)"
         remindLable.text = "Nhắc nhở: \(model.remind.rawValue)"
-
+        
         switch model.prioritize {
         case .low:
-            self.prioritizeImage.image = UIImage(named: "orengi")
             prioritizeLable.text = "Mức độ ưu tiên: Thấp"
+            self.colorPrioritizeView.backgroundColor = UIColor(hex: "0500FF")
+            
         case .medium:
-            self.prioritizeImage.image = UIImage(named: "green")
             prioritizeLable.text = "Mức độ ưu tiên: Trung bình"
+            self.colorPrioritizeView.backgroundColor = UIColor(hex: "FFF500")
         case .hight:
-            self.prioritizeImage.image = UIImage(named: "red")
             prioritizeLable.text = "Mức độ ưu tiên: Cao"
+            self.colorPrioritizeView.backgroundColor = UIColor(hex: "FF0000")
         case .none:
-            self.prioritizeImage.image = UIImage(named: "round")
             prioritizeLable.text = "Mức độ ưu tiên: Không có"
+            self.colorPrioritizeView.backgroundColor = UIColor(hex: "E3EFFF")
         }
-      
+        
         let date = model.dateTime
         let formatter = DateFormatter()
-        formatter.dateFormat = "dd/MM/YYYY at hh:mm"
-        formatter.dateStyle = .full
-        formatter.timeStyle = .short
-        formatter.timeZone = TimeZone(identifier: "GTC + 7")
+        formatter.dateFormat = "dd/MM/yyyy, HH:mm"
         timeLabel.text = "Thời gian: \(formatter.string(from: date! ))"
     }
 }

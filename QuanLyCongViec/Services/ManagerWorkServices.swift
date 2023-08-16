@@ -17,7 +17,7 @@ class WorkItem: Decodable {
     var remind: RemindType = .none
     var dateTime: Date?
     var note: String = ""
-    var isCompletion: Bool?
+    var isCompletion: Bool = false
     enum CodingKeys: String, CodingKey {
         case id
         case name
@@ -25,6 +25,7 @@ class WorkItem: Decodable {
         case remind
         case dateTime
         case note
+        case isCompletion
     }
     required convenience init(from decoder: Decoder) throws {
         self.init()
@@ -39,6 +40,7 @@ class WorkItem: Decodable {
         let timeStamp = try? container.decode(Timestamp.self, forKey: .dateTime)
         dateTime = timeStamp?.dateValue()
         note = try container.decode(String.self, forKey: .note)
+        
     }
     
 }
@@ -52,6 +54,7 @@ extension WorkItem: Encodable {
         try? container.encode(remind.rawValue, forKey: .remind)
         try? container.encode(dateTime, forKey: .dateTime)
         try container.encode(note, forKey: .note)
+        
     }
 }
 
@@ -63,7 +66,7 @@ enum PrioritizeType: String {
 }
 
 enum RemindType: String {
-    case none = "Không có nhắc nhỡ nào"
+    case none = "Không có"
     case ten = "Báo trước 10p"
     case fifteen = "Báo trước 15p"
     case twenty = "Báo trước 20p"

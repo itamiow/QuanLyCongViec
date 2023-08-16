@@ -110,6 +110,7 @@ class LoginViewController: UIViewController {
                 self.gotoHome()
             })
             self.present(showAlert, animated: true)
+            UserDefaults.standard.set(true, forKey: "isLoggedIn")
         }
     }
   
@@ -120,12 +121,13 @@ class LoginViewController: UIViewController {
     }
     
     func gotoHome() {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let gotoHomeVC = storyboard.instantiateViewController(withIdentifier: "MainTabbarViewController")
-        guard let window = (UIApplication.shared.delegate as? AppDelegate)?.window else { return}
-        let nv = UINavigationController(rootViewController: gotoHomeVC)
-        nv.setNavigationBarHidden(true, animated: true)
-        window.rootViewController = nv
-        window.makeKeyAndVisible()
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        let gotoHomeVC = storyboard.instantiateViewController(withIdentifier: "MainTabbarViewController")
+//        guard let window = (UIApplication.shared.delegate as? AppDelegate)?.window else { return}
+//        let nv = UINavigationController(rootViewController: gotoHomeVC)
+//        nv.setNavigationBarHidden(true, animated: true)
+//        window.rootViewController = nv
+//        window.makeKeyAndVisible()
+        AppDelegate.scene?.gotoHome()
     }
 }

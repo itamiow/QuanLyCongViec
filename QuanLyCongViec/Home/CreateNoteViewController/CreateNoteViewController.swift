@@ -22,7 +22,7 @@ class CreateNoteViewController: UIViewController {
     @IBOutlet weak var nameWorkTextField: UITextField!
     
     @IBOutlet weak var prioritizeView: UIView!
-    @IBOutlet weak var prioritizeImage: UIImageView!
+    @IBOutlet weak var colorPrioritizeView: UIView!
     @IBOutlet weak var prioritizeLabel: UILabel!
     
     @IBOutlet weak var remindView: UIView!
@@ -33,12 +33,11 @@ class CreateNoteViewController: UIViewController {
     @IBOutlet weak var noteTextView: UITextView!
     
     var models = [MyRemind]()
-    private var completion: ((String, String, Date) -> Void)?
     
     let prioritizeDropdown = DropDown()
     let remindDropdown = DropDown()
     var dataPrioritize: [String] = ["Thấp", "Trung bình", "Cao"]
-    var dataRemind: [String] = ["Không có nhắc nhở nào","Báo trước 15p", "Báo trước 20p", "Báo trước 25p", "Báo trước 30p"]
+    var dataRemind: [String] = ["Báo trước 15p", "Báo trước 20p", "Báo trước 25p", "Báo trước 30p"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,11 +51,17 @@ class CreateNoteViewController: UIViewController {
         timeView.layer.cornerRadius = 5
         noteTextView.layer.cornerRadius = 5
         
+        colorPrioritizeView.layer.cornerRadius = self.colorPrioritizeView.frame.height/2
+        colorPrioritizeView.backgroundColor = UIColor(hex: "E3EFFF")
+        
+       
         setupPrioritize()
         setupTime()
     }
     
     func setupPrioritize() {
+        prioritizeDropdown.separatorColor = .black
+        prioritizeDropdown.cornerRadius = 10
         prioritizeDropdown.anchorView = prioritizeView
         prioritizeDropdown.dataSource = dataPrioritize
         prioritizeDropdown.bottomOffset = CGPoint(x: 0, y: (prioritizeDropdown.anchorView?.plainView.bounds.height)!)
@@ -66,16 +71,18 @@ class CreateNoteViewController: UIViewController {
             self.prioritizeLabel.text = self.dataPrioritize[index]
             self.prioritizeLabel.textColor = .black
             if item == "Thấp" {
-                self.prioritizeImage.image = UIImage(named: "orengi")
+                self.colorPrioritizeView.backgroundColor = UIColor(hex: "0500FF")
             } else if item == "Trung bình" {
-                self.prioritizeImage.image = UIImage(named: "green")
+                self.colorPrioritizeView.backgroundColor = UIColor(hex: "FFF500")
             } else {
-                self.prioritizeImage.image = UIImage(named: "red")
+                self.colorPrioritizeView.backgroundColor = UIColor(hex: "FF0000")
             }
         }
     }
     
     func setupTime() {
+        remindDropdown.separatorColor = .black
+        remindDropdown.cornerRadius = 10
         remindDropdown.anchorView = remindView
         remindDropdown.dataSource = dataRemind
         remindDropdown.bottomOffset = CGPoint(x: 0, y: (remindDropdown.anchorView?.plainView.bounds.height)!)
@@ -84,7 +91,7 @@ class CreateNoteViewController: UIViewController {
         remindDropdown.selectionAction = { (index: Int, item: String) in
             self.remindLabel.text = self.dataRemind[index]
             self.remindLabel.textColor = .black
-            if item == "Không có nhắc nhở nào" {
+            if item == "Không có" {
                 self.datePickerView.date = self.datePickerView.date
             }else if item == "Báo trước 15p" {
                 self.datePickerView.date = Date().addingTimeInterval(900)
@@ -140,9 +147,10 @@ class CreateNoteViewController: UIViewController {
         }
         let alert = UIAlertController(title: "Thông báo", message: "Bạn đã tạo 1 công việc mới, vui lòng chuyển sang mục công việc để xem", preferredStyle: .alert)
         let actionOK = UIAlertAction(title: "OK", style: .default) {_ in
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let vc = storyboard.instantiateViewController(withIdentifier: "CreateNoteViewController") as! CreateNoteViewController
-            self.navigationController?.pushViewController(vc, animated: true)
+//            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//            let vc = storyboard.instantiateViewController(withIdentifier: "CreateNoteViewController") as! CreateNoteViewController
+//            self.navigationController?.pushViewController(vc, animated: true)
+            AppDelegate.scene?.gotoHome()
         }
         alert.addAction(actionOK)
         self.present(alert, animated: true, completion: nil)

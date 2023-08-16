@@ -17,7 +17,7 @@ class EditViewController: UIViewController {
     
     @IBOutlet weak var prioritizeView: UIView!
     @IBOutlet weak var prioritizeLabel: UILabel!
-    @IBOutlet weak var prioritizeImage: UIImageView!
+    @IBOutlet weak var colorPrioritizeView: UIView!
     
     @IBOutlet weak var remindView: UIView!
     @IBOutlet weak var remindLabel: UILabel!
@@ -32,7 +32,7 @@ class EditViewController: UIViewController {
     let prioritizeDropdown = DropDown()
     let remindDropdown = DropDown()
     var dataPrioritize: [String] = ["Thấp", "Trung bình", "Cao"]
-    var dataRemind: [String] = ["Không có nhắc nhỡ nào", "Báo trước 15p", "Báo trước 20p", "Báo trước 25p", "Báo trước 30p"]
+    var dataRemind: [String] = ["Báo trước 15p", "Báo trước 20p", "Báo trước 25p", "Báo trước 30p"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,6 +43,7 @@ class EditViewController: UIViewController {
         saveButton.layer.cornerRadius = self.saveButton.frame.height/2
         saveButton.layer.borderWidth = 2
         saveButton.layer.borderColor = UIColor.white.cgColor
+        colorPrioritizeView.layer.cornerRadius = self.colorPrioritizeView.frame.height/2
         prioritizeView.layer.cornerRadius = 5
         remindView.layer.cornerRadius = 5
         dateView.layer.cornerRadius = 5
@@ -76,14 +77,17 @@ class EditViewController: UIViewController {
                 }
             }
         }
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let gotoHomeVC = storyboard.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
-        navigationController?.pushViewController(gotoHomeVC, animated: true)
-        gotoHomeVC.navigationItem.hidesBackButton = true
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        let gotoHomeVC = storyboard.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
+//        navigationController?.pushViewController(gotoHomeVC, animated: true)
+//        gotoHomeVC.navigationItem.hidesBackButton = true
+        AppDelegate.scene?.gotoHome()
         setupRemind()
     }
     
     func setupPrioritize() {
+        prioritizeDropdown.separatorColor = .black
+        prioritizeDropdown.cornerRadius = 10
         prioritizeDropdown.anchorView = prioritizeView
         prioritizeDropdown.dataSource = dataPrioritize
         prioritizeDropdown.bottomOffset = CGPoint(x: 0, y: (prioritizeDropdown.anchorView?.plainView.bounds.height)!)
@@ -93,16 +97,25 @@ class EditViewController: UIViewController {
             self.prioritizeLabel.text = self.dataPrioritize[index]
             self.prioritizeLabel.textColor = .black
             if item == "Thấp" {
-                self.prioritizeImage.image = UIImage(named: "orengi")
+                self.colorPrioritizeView.backgroundColor = UIColor(hex: "0500FF")
             } else if item == "Trung bình" {
-                self.prioritizeImage.image = UIImage(named: "green")
+                self.colorPrioritizeView.backgroundColor = UIColor(hex: "FFF500")
             } else {
-                self.prioritizeImage.image = UIImage(named: "red")
+                self.colorPrioritizeView.backgroundColor = UIColor(hex: "FF0000")
             }
+        }
+        if prioritizeLabel.text == "Thấp" {
+            self.colorPrioritizeView.backgroundColor = UIColor(hex: "0500FF")
+        } else if prioritizeLabel.text == "Trung bình" {
+            self.colorPrioritizeView.backgroundColor = UIColor(hex: "FFF500")
+        } else {
+            self.colorPrioritizeView.backgroundColor = UIColor(hex: "FF0000")
         }
     }
     
     func setupTime() {
+        remindDropdown.separatorColor = .black
+        remindDropdown.cornerRadius = 10
         remindDropdown.anchorView = remindView
         remindDropdown.dataSource = dataRemind
         remindDropdown.bottomOffset = CGPoint(x: 0, y: (remindDropdown.anchorView?.plainView.bounds.height)!)
@@ -111,7 +124,7 @@ class EditViewController: UIViewController {
         remindDropdown.selectionAction = { (index: Int, item: String) in
             self.remindLabel.text = self.dataRemind[index]
             self.remindLabel.textColor = .black
-            if item == "Không có nhắc nhở nào" {
+            if item == "Không có" {
                 self.datePickerView.date = self.datePickerView.date
             }else if item == "Báo trước 15p" {
                 self.datePickerView.date = Date().addingTimeInterval(900)

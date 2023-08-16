@@ -26,6 +26,7 @@ class UserViewController: UIViewController {
     @IBOutlet weak var changePasswordView: UIView!
     @IBOutlet weak var logoutView: UIView!
     let dataStore = Firestore.firestore()
+    
     var imagePicker: UIImagePickerController!
     
     override func viewDidLoad() {
@@ -65,10 +66,7 @@ class UserViewController: UIViewController {
         changePasswordView.layer.borderWidth = 1
         changePasswordView.layer.borderColor = UIColor.black.cgColor
         
-        logoutButton.layer.cornerRadius = self.logoutButton.frame.height/2
-        logoutView.layer.cornerRadius = self.logoutView.frame.height/2
-        logoutView.layer.borderWidth = 2
-        logoutView.layer.borderColor = UIColor.white.cgColor
+        logoutView.backgroundColor = UIColor(hex: "E3EFFF")
     }
     
     func openSetting() {
@@ -95,8 +93,6 @@ class UserViewController: UIViewController {
             } else if status == .denied {
                 self.openSetting()
             } else if status == .restricted {
-                self.openSetting()
-            } else if status == .limited {
                 self.openSetting()
             }
         }
@@ -148,19 +144,21 @@ class UserViewController: UIViewController {
         let firebaseAuth = Auth.auth()
         do {
             try firebaseAuth.signOut()
+            UserDefaults.standard.set(false, forKey: "isLoggedIn")
             gotoLogin()
         } catch {
             print("Lỗi đăng xuất")
         }
     }
     func gotoLogin(){
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let gotoLoginVC = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
-        guard let window = (UIApplication.shared.delegate as? AppDelegate)?.window else { return}
-        let nv = UINavigationController(rootViewController: gotoLoginVC)
-        nv.setNavigationBarHidden(true, animated: true)
-        window.rootViewController = nv
-        window.makeKeyAndVisible()
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        let gotoLoginVC = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
+//        guard let window = (UIApplication.shared.delegate as? AppDelegate)?.window else { return}
+//        let nv = UINavigationController(rootViewController: gotoLoginVC)
+//        nv.setNavigationBarHidden(true, animated: true)
+//        window.rootViewController = nv
+//        window.makeKeyAndVisible()
+        AppDelegate.scene?.routeLogin()
     }
     
     func handleData() {
