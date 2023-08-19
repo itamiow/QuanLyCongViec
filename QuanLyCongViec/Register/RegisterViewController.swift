@@ -146,6 +146,7 @@ class RegisterViewController: UIViewController {
         dataStore.collection("users").document(email).setData([
             "usersName": userName,
             "email": email,
+            "image": ""
         ]) { err in
             if let err = err {
                 print("Error adding document: \(err)")

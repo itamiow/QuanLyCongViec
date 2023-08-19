@@ -9,7 +9,8 @@ import UIKit
 import Photos
 import FirebaseAuth
 import FirebaseFirestore
-
+import FirebaseStorage
+import Kingfisher
 class UserViewController: UIViewController {
     
     @IBOutlet weak var logoutButton: UIButton!
@@ -26,13 +27,13 @@ class UserViewController: UIViewController {
     @IBOutlet weak var changePasswordView: UIView!
     @IBOutlet weak var logoutView: UIView!
     let dataStore = Firestore.firestore()
-    
+    private var storage = Storage.storage().reference()
     var imagePicker: UIImagePickerController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setUp()
-      
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -40,7 +41,7 @@ class UserViewController: UIViewController {
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-      
+        
         avatarImage.layer.cornerRadius = self.avatarImage.layer.bounds.height/2
         avatarImage.clipsToBounds = true
         cameraView.layer.cornerRadius = self.cameraView.layer.bounds.height/2
@@ -82,7 +83,7 @@ class UserViewController: UIViewController {
         let albumsAction: UIAlertAction = UIAlertAction(title: "Albums", style: .default) {_ in PHPhotoLibrary.requestAuthorization(for: .addOnly) {status in
             if status == .authorized {
                 DispatchQueue.main.async {
-                    self.imagePicker.allowsEditing = false
+                    self.imagePicker.allowsEditing = true
                     self.imagePicker.sourceType = .photoLibrary
                     self.imagePicker.mediaTypes = UIImagePickerController.availableMediaTypes(for: .photoLibrary)!
                     self.imagePicker.modalPresentationStyle = .popover
@@ -96,7 +97,7 @@ class UserViewController: UIViewController {
                 self.openSetting()
             }
         }
-    }
+        }
         
         let cameraAction: UIAlertAction = UIAlertAction(title: "Camera", style: .default) {_ in
             AVCaptureDevice.requestAccess(for: .video) {response in
@@ -117,7 +118,7 @@ class UserViewController: UIViewController {
                 }
             }
         }
-        let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .cancel) {_ in
+        let cancelAction: UIAlertAction = UIAlertAction(title: "Huỷ", style: .cancel) {_ in
         }
         actionSheetController.addAction(albumsAction)
         actionSheetController.addAction(cameraAction)
@@ -142,22 +143,23 @@ class UserViewController: UIViewController {
     
     @IBAction func didTapLogout(_ sender: UIButton) {
         let firebaseAuth = Auth.auth()
-        do {
-            try firebaseAuth.signOut()
-            UserDefaults.standard.set(false, forKey: "isLoggedIn")
-            gotoLogin()
-        } catch {
-            print("Lỗi đăng xuất")
+        let alertController = UIAlertController(title: "Bạn có muốn đăng xuất tài khoản", message: nil, preferredStyle: .actionSheet)
+        let logout: UIAlertAction = UIAlertAction(title: "Đăng xuất", style: .destructive) {_ in
+            do {
+                try firebaseAuth.signOut()
+                UserDefaults.standard.set(false, forKey: "isLoggedIn")
+                self.gotoLogin()
+            } catch {
+                print("Lỗi đăng xuất")
+            }
         }
+        let cancel: UIAlertAction = UIAlertAction(title: "Huỷ", style: .cancel) {_ in
+        }
+        alertController.addAction(logout)
+        alertController.addAction(cancel)
+        self.present(alertController, animated: true)
     }
     func gotoLogin(){
-//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//        let gotoLoginVC = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
-//        guard let window = (UIApplication.shared.delegate as? AppDelegate)?.window else { return}
-//        let nv = UINavigationController(rootViewController: gotoLoginVC)
-//        nv.setNavigationBarHidden(true, animated: true)
-//        window.rootViewController = nv
-//        window.makeKeyAndVisible()
         AppDelegate.scene?.routeLogin()
     }
     
@@ -165,26 +167,95 @@ class UserViewController: UIViewController {
         let docRef = self.dataStore.collection("users")
         docRef.getDocuments {(snapshot, error) in
             if let error = error {
+                print("Error getting documents: \(error)")
+            } else {
+                for document in snapshot!.documents {
+                    let data = document.data()
+                    if let email = data["email"] as? String, let usersName = data["usersName"] as? String, let image = data["image"] as? String {
+                        self.emailLabel.text = email
+                        self.userNameLabel.text = usersName
+                        self.avatarImage.kf.setImage(with: URL(string: image))
+                        print(image)
+                        print(self.avatarImage.image)
+                    }
+                }
+            }
+        }
+    }
+}
+extension UserViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        var urlString: String?
+        
+        imagePicker.dismiss(animated: true, completion: nil)
+        guard let selectedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else {
+            print("Error: \(info)")
+            return
+        }
+        let resizeImage = resizeImage(image: selectedImage, targetSize: CGSize(width: 300, height: 300))
+        guard let imageData = resizeImage.pngData() else {
+            return
+        }
+        
+        storage.child("images/userId.png").putData(imageData,metadata: nil, completion: { _,error in
+            guard error == nil else {
+                print("Failure to update")
+                return
+            }
+        })
+        
+        storage.child("images/userId.png").downloadURL { url, error in
+            guard let url = url, error == nil else {
+                return
+            }
+            urlString = url.absoluteString
+            print("Download \(urlString)")
+            self.avatarImage.image = selectedImage
+            
+            //Lay email
+            self.dataStore.collection("users").getDocuments { snapshot, error in
+                if let error = error {
                     print("Error getting documents: \(error)")
                 } else {
                     for document in snapshot!.documents {
                         let data = document.data()
-                        if let email = data["email"] as? String, let usersName = data["usersName"] as? String {
-                            self.emailLabel.text = email
-                            self.userNameLabel.text = usersName
+                        if let email = data["email"] as? String {
+                            //Update url vao firestore
+                            self.dataStore.collection("users").document(email).setData(["image": urlString], merge: true)
                         }
                     }
                 }
+            }
+        }
+        DispatchQueue.main.async {
+            self.avatarImage.image = selectedImage
         }
     }
-}
-extension UserViewController: UIImagePickerControllerDelegate,UINavigationControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        guard let selectedImage = info[.originalImage] as? UIImage else {
-            print("Error: \(info)")
-            return
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        imagePicker.dismiss(animated: true, completion: nil)
+    }
+    
+    func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
+        let size = image.size
+        
+        let widthRatio  = targetSize.width  / image.size.width
+        let heightRatio = targetSize.height / image.size.height
+        
+        var newSize: CGSize
+        if(widthRatio > heightRatio) {
+            newSize = CGSize(width: size.width * heightRatio, height: size.height * heightRatio)
+        } else {
+            newSize = CGSize(width: size.width * widthRatio,  height: size.height * widthRatio)
         }
-        self.avatarImage.image = selectedImage
-        dismiss(animated: true)
+        
+        let rect = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height)
+        
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
+        image.draw(in: rect)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return newImage!
     }
 }

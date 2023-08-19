@@ -17,7 +17,7 @@ class WorkItem: Decodable {
     var remind: RemindType = .none
     var dateTime: Date?
     var note: String = ""
-    var isCompletion: Bool = false
+//    var isCompletion: Bool = false
     enum CodingKeys: String, CodingKey {
         case id
         case name
@@ -25,7 +25,7 @@ class WorkItem: Decodable {
         case remind
         case dateTime
         case note
-        case isCompletion
+//        case isCompletion
     }
     required convenience init(from decoder: Decoder) throws {
         self.init()

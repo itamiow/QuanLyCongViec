@@ -14,6 +14,8 @@ pod 'IQKeyboardManagerSwift'
 pod 'KeychainSwift'
 pod 'DropDown'
 pod 'lottie-ios'
+pod 'FirebaseStorage'
+pod 'Kingfisher'
   # Pods for QuanLyCongViec
 
 end

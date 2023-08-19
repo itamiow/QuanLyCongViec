@@ -334,7 +334,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="qzx-Pl-Fgi">
-                                <rect key="frame" x="0.0" y="112.66666666666669" width="393" height="705.33333333333326"/>
+                                <rect key="frame" x="0.0" y="113.66666666666669" width="393" height="704.33333333333326"/>
                                 <color key="backgroundColor" red="0.8901960784313725" green="0.93725490196078431" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="sectionIndexBackgroundColor" red="0.8901960784313725" green="0.93725490196078431" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
@@ -349,16 +349,16 @@
                                 </prototypes>
                             </tableView>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Danh sách công việc" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U9V-S0-DDt">
-                                <rect key="frame" x="16" y="75" width="361" height="27.666666666666671"/>
+                                <rect key="frame" x="16" y="75" width="361" height="28.666666666666671"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1l8-qU-H1I">
-                                <rect key="frame" x="0.0" y="112.66666666666669" width="393" height="705.33333333333326"/>
+                                <rect key="frame" x="0.0" y="113.66666666666669" width="393" height="704.33333333333326"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chưa có công việc nào" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qfl-K3-Apf">
-                                        <rect key="frame" x="110.00000000000001" y="342.33333333333331" width="173.33333333333337" height="21"/>
+                                        <rect key="frame" x="110.00000000000001" y="341.66666666666663" width="173.33333333333337" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
