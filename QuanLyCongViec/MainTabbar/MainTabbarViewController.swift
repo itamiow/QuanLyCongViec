@@ -18,7 +18,7 @@ class MainTabbarViewController: ESTabBarController {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = true
     }
-
+    
     lazy var nameWorkVC: UIViewController =  {
         let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "HomeViewController")
         viewController.view.backgroundColor = UIColor(hex: "E3EFFF")
@@ -51,5 +51,7 @@ class MainTabbarViewController: ESTabBarController {
                                                  selectedImage: UIImage(named: "user"))
         let nav = UINavigationController(rootViewController: viewController)
         nav.setNavigationBarHidden(true, animated: true)
-        return nav } ()
+        return nav
+        
+    } ()
 }

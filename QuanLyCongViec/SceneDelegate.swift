@@ -19,7 +19,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         (UIApplication.shared.delegate as? AppDelegate)?.window = window
         let isCompletedTutorial = UserDefaultService.shared.completedTutorial
         if isCompletedTutorial {
-            
             let islogin = UserDefaults.standard.bool(forKey: "isLoggedIn")
             if islogin {
                 gotoHome()

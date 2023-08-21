@@ -13,7 +13,7 @@ import FirebaseFirestoreSwift
 class WorkItem: Decodable {
     var id: String = ""
     var name: String = ""
-    var prioritize: PrioritizeType = .none
+    var priority: PriorityType = .none
     var remind: RemindType = .none
     var dateTime: Date?
     var note: String = ""
@@ -21,7 +21,7 @@ class WorkItem: Decodable {
     enum CodingKeys: String, CodingKey {
         case id
         case name
-        case prioritize
+        case priority
         case remind
         case dateTime
         case note
@@ -33,8 +33,8 @@ class WorkItem: Decodable {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decode(String.self, forKey: .id)
         name = try container.decode(String.self, forKey: .name)
-        let rawPrioritize: String = (try? container.decode(String.self, forKey: .prioritize)) ?? ""
-        prioritize = PrioritizeType(rawValue: rawPrioritize) ?? .none
+        let rawPriority: String = (try? container.decode(String.self, forKey: .priority)) ?? ""
+        priority = PriorityType(rawValue: rawPriority) ?? .none
         let remindRawValue = (try? container.decode(String.self, forKey: .remind)) ?? ""
         remind = RemindType(rawValue: remindRawValue) ?? .none
         let timeStamp = try? container.decode(Timestamp.self, forKey: .dateTime)
@@ -50,7 +50,7 @@ extension WorkItem: Encodable {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(id, forKey: .id)
         try container.encode(name, forKey: .name)
-        try? container.encode(prioritize.rawValue, forKey: .prioritize)
+        try? container.encode(priority.rawValue, forKey: .priority)
         try? container.encode(remind.rawValue, forKey: .remind)
         try? container.encode(dateTime, forKey: .dateTime)
         try container.encode(note, forKey: .note)
@@ -58,7 +58,7 @@ extension WorkItem: Encodable {
     }
 }
 
-enum PrioritizeType: String {
+enum PriorityType: String {
     case none = "Không có"
     case low = "Thấp"
     case medium = "Trung bình"
@@ -120,7 +120,9 @@ final class ManagerWorkServices: ManagerWorkProtocol {
     
     func getListWork(completion: @escaping (([WorkItem]) -> Void)) {
         let dataStore = Firestore.firestore()
-        dataStore.collection("works").getDocuments() { (querySnapshot, err) in
+        let email = UserDefaults.standard.currentEmail ?? ""
+
+        dataStore.collection("users").document(email).collection("works").getDocuments() { (querySnapshot, err) in
             var result: [WorkItem] = []
             if let err = err {
                 print("Error getting documents: \(err)")

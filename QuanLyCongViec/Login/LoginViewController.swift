@@ -69,18 +69,18 @@ class LoginViewController: UIViewController {
         }
         
         if password.isEmpty {
-            let message = "Password là cần thiết"
+            let message = "Mật khẩu là cần thiết"
             showAlert(message: message)
             return
         }
         if password.count < 4 {
-            let message = "Password ít nhất phải có 4 kí tự trở lên"
+            let message = "Mật khẩu ít nhất phải có 4 kí tự trở lên"
             showAlert(message: message)
             return
         }
         
         if password.count > 40 {
-            let message = "Password không được quá 40 kí tự"
+            let message = "Mật khẩu không được quá 40 kí tự"
             showAlert(message: message)
             return
         }
@@ -105,11 +105,8 @@ class LoginViewController: UIViewController {
                 self.present(alert, animated: true)
                 return
             }
-            let showAlert = UIAlertController(title: nil, message: "Đăng nhập thành công", preferredStyle: .alert)
-            showAlert.addAction(UIAlertAction(title: "OK", style: .default) {_ in
-                self.gotoHome()
-            })
-            self.present(showAlert, animated: true)
+            self.gotoHome()
+            UserDefaults.standard.currentEmail = email
             UserDefaults.standard.set(true, forKey: "isLoggedIn")
         }
     }
@@ -121,13 +118,6 @@ class LoginViewController: UIViewController {
     }
     
     func gotoHome() {
-//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//        let gotoHomeVC = storyboard.instantiateViewController(withIdentifier: "MainTabbarViewController")
-//        guard let window = (UIApplication.shared.delegate as? AppDelegate)?.window else { return}
-//        let nv = UINavigationController(rootViewController: gotoHomeVC)
-//        nv.setNavigationBarHidden(true, animated: true)
-//        window.rootViewController = nv
-//        window.makeKeyAndVisible()
         AppDelegate.scene?.gotoHome()
     }
 }

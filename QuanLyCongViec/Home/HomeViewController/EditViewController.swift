@@ -15,9 +15,9 @@ class EditViewController: UIViewController {
     
     @IBOutlet weak var nameWorkTextField: UITextField!
     
-    @IBOutlet weak var prioritizeView: UIView!
-    @IBOutlet weak var prioritizeLabel: UILabel!
-    @IBOutlet weak var colorPrioritizeView: UIView!
+    @IBOutlet weak var priorityView: UIView!
+    @IBOutlet weak var priorityLabel: UILabel!
+    @IBOutlet weak var colorPriorityView: UIView!
     
     @IBOutlet weak var remindView: UIView!
     @IBOutlet weak var remindLabel: UILabel!
@@ -29,22 +29,22 @@ class EditViewController: UIViewController {
     
     var model: WorkItem?
     
-    let prioritizeDropdown = DropDown()
+    let priorityDropdown = DropDown()
     let remindDropdown = DropDown()
-    var dataPrioritize: [String] = ["Thấp", "Trung bình", "Cao"]
+    var dataPriority: [String] = ["Thấp", "Trung bình", "Cao"]
     var dataRemind: [String] = ["Báo trước 15p", "Báo trước 20p", "Báo trước 25p", "Báo trước 30p"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.isNavigationBarHidden = false
         config()
-        setupPrioritize()
+        setupPriority()
         setupTime()
         saveButton.layer.cornerRadius = self.saveButton.frame.height/2
         saveButton.layer.borderWidth = 2
         saveButton.layer.borderColor = UIColor.white.cgColor
-        colorPrioritizeView.layer.cornerRadius = self.colorPrioritizeView.frame.height/2
-        prioritizeView.layer.cornerRadius = 5
+        colorPriorityView.layer.cornerRadius = self.colorPriorityView.frame.height/2
+        priorityView.layer.cornerRadius = 5
         remindView.layer.cornerRadius = 5
         dateView.layer.cornerRadius = 5
         noteTexView.layer.cornerRadius = 5
@@ -52,13 +52,13 @@ class EditViewController: UIViewController {
     
     @IBAction func didTapSave(_ sender: UIButton) {
         let namework = nameWorkTextField.text ?? ""
-        let prioritize = prioritizeLabel.text ?? ""
+        let priority = priorityLabel.text ?? ""
         let remind = remindLabel.text ?? ""
         let note = noteTexView.text ?? ""
         let dateTime = datePickerView.date
         
         let dataStore = Firestore.firestore()
-        if namework.isEmpty || prioritize.isEmpty || remind.isEmpty || note.isEmpty {
+        if namework.isEmpty || priority.isEmpty || remind.isEmpty || note.isEmpty {
             let alert = UIAlertController(title: "Lỗi", message: "Hãy nhập thông tin của bạn", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default))
             self.present(alert, animated: true, completion: nil)
@@ -66,7 +66,7 @@ class EditViewController: UIViewController {
             dataStore.collection("works")
                 .document(model?.id ?? "")
                 .updateData(["name": namework,
-                             "prioritize": prioritize,
+                             "priority": priority,
                              "remind": remind,
                              "note": note,
                              "dateTime": dateTime]) { error in
@@ -77,39 +77,35 @@ class EditViewController: UIViewController {
                 }
             }
         }
-//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//        let gotoHomeVC = storyboard.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
-//        navigationController?.pushViewController(gotoHomeVC, animated: true)
-//        gotoHomeVC.navigationItem.hidesBackButton = true
         AppDelegate.scene?.gotoHome()
         setupRemind()
     }
     
-    func setupPrioritize() {
-        prioritizeDropdown.separatorColor = .black
-        prioritizeDropdown.cornerRadius = 10
-        prioritizeDropdown.anchorView = prioritizeView
-        prioritizeDropdown.dataSource = dataPrioritize
-        prioritizeDropdown.bottomOffset = CGPoint(x: 0, y: (prioritizeDropdown.anchorView?.plainView.bounds.height)!)
-        prioritizeDropdown.topOffset = CGPoint(x: 0, y: -(prioritizeDropdown.anchorView?.plainView.bounds.height)!)
-        prioritizeDropdown.direction = .bottom
-        prioritizeDropdown.selectionAction = { (index: Int, item: String) in
-            self.prioritizeLabel.text = self.dataPrioritize[index]
-            self.prioritizeLabel.textColor = .black
+    func setupPriority() {
+        priorityDropdown.separatorColor = .black
+        priorityDropdown.cornerRadius = 10
+        priorityDropdown.anchorView = priorityView
+        priorityDropdown.dataSource = dataPriority
+        priorityDropdown.bottomOffset = CGPoint(x: 0, y: (priorityDropdown.anchorView?.plainView.bounds.height)!)
+        priorityDropdown.topOffset = CGPoint(x: 0, y: -(priorityDropdown.anchorView?.plainView.bounds.height)!)
+        priorityDropdown.direction = .bottom
+        priorityDropdown.selectionAction = { (index: Int, item: String) in
+            self.priorityLabel.text = self.dataPriority[index]
+            self.priorityLabel.textColor = .black
             if item == "Thấp" {
-                self.colorPrioritizeView.backgroundColor = UIColor(hex: "0500FF")
+                self.colorPriorityView.backgroundColor = UIColor(hex: "0500FF")
             } else if item == "Trung bình" {
-                self.colorPrioritizeView.backgroundColor = UIColor(hex: "FFF500")
+                self.colorPriorityView.backgroundColor = UIColor(hex: "FFF500")
             } else {
-                self.colorPrioritizeView.backgroundColor = UIColor(hex: "FF0000")
+                self.colorPriorityView.backgroundColor = UIColor(hex: "FF0000")
             }
         }
-        if prioritizeLabel.text == "Thấp" {
-            self.colorPrioritizeView.backgroundColor = UIColor(hex: "0500FF")
-        } else if prioritizeLabel.text == "Trung bình" {
-            self.colorPrioritizeView.backgroundColor = UIColor(hex: "FFF500")
+        if priorityLabel.text == "Thấp" {
+            self.colorPriorityView.backgroundColor = UIColor(hex: "0500FF")
+        } else if priorityLabel.text == "Trung bình" {
+            self.colorPriorityView.backgroundColor = UIColor(hex: "FFF500")
         } else {
-            self.colorPrioritizeView.backgroundColor = UIColor(hex: "FF0000")
+            self.colorPriorityView.backgroundColor = UIColor(hex: "FF0000")
         }
     }
     
@@ -139,8 +135,8 @@ class EditViewController: UIViewController {
         }
     }
     
-    @IBAction func didTapPrioritize(_ sender: UIButton) {
-        prioritizeDropdown.show()
+    @IBAction func didTapPriority(_ sender: UIButton) {
+        priorityDropdown.show()
     }
     
     @IBAction func didTapleRemind(_ sender: UIButton) {
@@ -151,7 +147,7 @@ class EditViewController: UIViewController {
         nameWorkTextField.text = model?.name
         noteTexView.text = model?.note
         remindLabel.text = model?.remind.rawValue
-        prioritizeLabel.text = model?.prioritize.rawValue
+        priorityLabel.text = model?.priority.rawValue
         datePickerView.date = model?.dateTime ?? Date()
     }
     

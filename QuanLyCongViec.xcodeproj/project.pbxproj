@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7139749C2A701AC60023A87E /* UserDefaultServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7139749A2A701AC50023A87E /* UserDefaultServices.swift */; };
+		7144625D2A936B5700E42DE5 /* UserDefault+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7144625C2A936B5700E42DE5 /* UserDefault+Extension.swift */; };
 		7145DEF52A68F80100C943B7 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7145DEF42A68F80100C943B7 /* LoginViewController.swift */; };
 		7145DEF72A6925D700C943B7 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7145DEF62A6925D700C943B7 /* RegisterViewController.swift */; };
 		7145DEF92A692A5E00C943B7 /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7145DEF82A692A5E00C943B7 /* ForgotPasswordViewController.swift */; };
@@ -32,13 +33,14 @@
 		71F9C7122A683BAF007EAE78 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71F9C7102A683BAF007EAE78 /* Main.storyboard */; };
 		71F9C7142A683BB0007EAE78 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 71F9C7132A683BB0007EAE78 /* Assets.xcassets */; };
 		71F9C7172A683BB0007EAE78 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 71F9C7152A683BB0007EAE78 /* LaunchScreen.storyboard */; };
-		71F9C7222A683CC2007EAE78 /* extension + UIcolor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F9C7212A683CC2007EAE78 /* extension + UIcolor.swift */; };
+		71F9C7222A683CC2007EAE78 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71F9C7212A683CC2007EAE78 /* UIColor+Extension.swift */; };
 		91262E6E64F9745F295E9CE8 /* Pods_QuanLyCongViec.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C0DE9D91AEC3CF7180E6F35 /* Pods_QuanLyCongViec.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		174BDB8B737D5540A75C5878 /* Pods-QuanLyCongViec.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuanLyCongViec.debug.xcconfig"; path = "Target Support Files/Pods-QuanLyCongViec/Pods-QuanLyCongViec.debug.xcconfig"; sourceTree = "<group>"; };
 		7139749A2A701AC50023A87E /* UserDefaultServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultServices.swift; sourceTree = "<group>"; };
+		7144625C2A936B5700E42DE5 /* UserDefault+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefault+Extension.swift"; sourceTree = "<group>"; };
 		7145DEF42A68F80100C943B7 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		7145DEF62A6925D700C943B7 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		7145DEF82A692A5E00C943B7 /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
@@ -65,7 +67,7 @@
 		71F9C7132A683BB0007EAE78 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		71F9C7162A683BB0007EAE78 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		71F9C7182A683BB0007EAE78 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		71F9C7212A683CC2007EAE78 /* extension + UIcolor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "extension + UIcolor.swift"; sourceTree = "<group>"; };
+		71F9C7212A683CC2007EAE78 /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		8C0DE9D91AEC3CF7180E6F35 /* Pods_QuanLyCongViec.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QuanLyCongViec.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C64E6D520E63EAAD007014D5 /* Pods-QuanLyCongViec.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuanLyCongViec.release.xcconfig"; path = "Target Support Files/Pods-QuanLyCongViec/Pods-QuanLyCongViec.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -82,6 +84,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7144625B2A936B2C00E42DE5 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				71F9C7212A683CC2007EAE78 /* UIColor+Extension.swift */,
+				7144625C2A936B5700E42DE5 /* UserDefault+Extension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		7145DEF22A68F7C300C943B7 /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -194,7 +205,7 @@
 		71F9C7092A683BAF007EAE78 /* QuanLyCongViec */ = {
 			isa = PBXGroup;
 			children = (
-				71F9C7212A683CC2007EAE78 /* extension + UIcolor.swift */,
+				7144625B2A936B2C00E42DE5 /* Extensions */,
 				715095482A6D3575007317BA /* Services */,
 				71F9C71E2A683BBA007EAE78 /* Tutorial */,
 				7145DEF22A68F7C300C943B7 /* Login */,
@@ -368,8 +379,9 @@
 				7145DF1F2A6A2D5B00C943B7 /* ChangeUsernameViewController.swift in Sources */,
 				71F9C70B2A683BAF007EAE78 /* AppDelegate.swift in Sources */,
 				7150954A2A6D35A9007317BA /* ManagerWorkServices.swift in Sources */,
+				7144625D2A936B5700E42DE5 /* UserDefault+Extension.swift in Sources */,
 				7145DEF72A6925D700C943B7 /* RegisterViewController.swift in Sources */,
-				71F9C7222A683CC2007EAE78 /* extension + UIcolor.swift in Sources */,
+				71F9C7222A683CC2007EAE78 /* UIColor+Extension.swift in Sources */,
 				7139749C2A701AC60023A87E /* UserDefaultServices.swift in Sources */,
 				7145DEF92A692A5E00C943B7 /* ForgotPasswordViewController.swift in Sources */,
 				71F9C70D2A683BAF007EAE78 /* SceneDelegate.swift in Sources */,

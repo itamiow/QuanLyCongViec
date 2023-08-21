@@ -154,12 +154,12 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="checkworkImage" destination="xcc-gV-hIC" id="wL9-HV-cl4"/>
-                <outlet property="colorPrioritizeView" destination="ty4-Pa-3Uu" id="SAl-1P-uYq"/>
+                <outlet property="colorPriorityView" destination="ty4-Pa-3Uu" id="SAl-1P-uYq"/>
                 <outlet property="editView" destination="Rua-qD-ikC" id="DFf-zU-kpN"/>
                 <outlet property="myView" destination="VOT-nX-wFB" id="ovh-pj-PnE"/>
                 <outlet property="nameworkLable" destination="4CP-Mv-T8F" id="nqG-p4-7Gg"/>
                 <outlet property="noteLable" destination="Ie2-N7-e3P" id="iqa-W3-Sxn"/>
-                <outlet property="prioritizeLable" destination="d7F-Rw-Qos" id="by8-TF-tie"/>
+                <outlet property="priorityLable" destination="d7F-Rw-Qos" id="by8-TF-tie"/>
                 <outlet property="remindLable" destination="tWX-yt-hXD" id="LpI-pK-BXn"/>
                 <outlet property="timeLabel" destination="eCX-uV-Y6r" id="Ys1-Iq-5cl"/>
                 <outlet property="workStatusLabel" destination="Ode-Gz-1mT" id="2hL-D8-jBB"/>

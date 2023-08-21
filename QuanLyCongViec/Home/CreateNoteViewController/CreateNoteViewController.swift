@@ -21,9 +21,9 @@ class CreateNoteViewController: UIViewController {
     @IBOutlet weak var createNoteButton: UIButton!
     @IBOutlet weak var nameWorkTextField: UITextField!
     
-    @IBOutlet weak var prioritizeView: UIView!
-    @IBOutlet weak var colorPrioritizeView: UIView!
-    @IBOutlet weak var prioritizeLabel: UILabel!
+    @IBOutlet weak var priorityView: UIView!
+    @IBOutlet weak var colorPriorityView: UIView!
+    @IBOutlet weak var priorityLabel: UILabel!
     
     @IBOutlet weak var remindView: UIView!
     @IBOutlet weak var remindLabel: UILabel!
@@ -34,14 +34,14 @@ class CreateNoteViewController: UIViewController {
     
     var models = [MyRemind]()
     
-    let prioritizeDropdown = DropDown()
+    let priorityDropdown = DropDown()
     let remindDropdown = DropDown()
-    var dataPrioritize: [String] = ["Thấp", "Trung bình", "Cao"]
+    var dataPriority: [String] = ["Thấp", "Trung bình", "Cao"]
     var dataRemind: [String] = ["Báo trước 15p", "Báo trước 20p", "Báo trước 25p", "Báo trước 30p"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        prioritizeView.layer.cornerRadius = 5
+        priorityView.layer.cornerRadius = 5
         remindView.layer.cornerRadius = 5
         timeView.layer.cornerRadius = 5
         
@@ -51,31 +51,31 @@ class CreateNoteViewController: UIViewController {
         timeView.layer.cornerRadius = 5
         noteTextView.layer.cornerRadius = 5
         
-        colorPrioritizeView.layer.cornerRadius = self.colorPrioritizeView.frame.height/2
-        colorPrioritizeView.backgroundColor = UIColor(hex: "E3EFFF")
+        colorPriorityView.layer.cornerRadius = self.colorPriorityView.frame.height/2
+        colorPriorityView.backgroundColor = UIColor(hex: "E3EFFF")
         
        
-        setupPrioritize()
+        setupPriority()
         setupTime()
     }
     
-    func setupPrioritize() {
-        prioritizeDropdown.separatorColor = .black
-        prioritizeDropdown.cornerRadius = 10
-        prioritizeDropdown.anchorView = prioritizeView
-        prioritizeDropdown.dataSource = dataPrioritize
-        prioritizeDropdown.bottomOffset = CGPoint(x: 0, y: (prioritizeDropdown.anchorView?.plainView.bounds.height)!)
-        prioritizeDropdown.topOffset = CGPoint(x: 0, y: -(prioritizeDropdown.anchorView?.plainView.bounds.height)!)
-        prioritizeDropdown.direction = .bottom
-        prioritizeDropdown.selectionAction = { (index: Int, item: String) in
-            self.prioritizeLabel.text = self.dataPrioritize[index]
-            self.prioritizeLabel.textColor = .black
+    func setupPriority() {
+        priorityDropdown.separatorColor = .black
+        priorityDropdown.cornerRadius = 10
+        priorityDropdown.anchorView = priorityView
+        priorityDropdown.dataSource = dataPriority
+        priorityDropdown.bottomOffset = CGPoint(x: 0, y: (priorityDropdown.anchorView?.plainView.bounds.height)!)
+        priorityDropdown.topOffset = CGPoint(x: 0, y: -(priorityDropdown.anchorView?.plainView.bounds.height)!)
+        priorityDropdown.direction = .bottom
+        priorityDropdown.selectionAction = { (index: Int, item: String) in
+            self.priorityLabel.text = self.dataPriority[index]
+            self.priorityLabel.textColor = .black
             if item == "Thấp" {
-                self.colorPrioritizeView.backgroundColor = UIColor(hex: "0500FF")
+                self.colorPriorityView.backgroundColor = UIColor(hex: "0500FF")
             } else if item == "Trung bình" {
-                self.colorPrioritizeView.backgroundColor = UIColor(hex: "FFF500")
+                self.colorPriorityView.backgroundColor = UIColor(hex: "FFF500")
             } else {
-                self.colorPrioritizeView.backgroundColor = UIColor(hex: "FF0000")
+                self.colorPriorityView.backgroundColor = UIColor(hex: "FF0000")
             }
         }
     }
@@ -106,9 +106,10 @@ class CreateNoteViewController: UIViewController {
         }
     }
     
-    @IBAction func didTapPrioritize(_ sender: UIButton) {
-        prioritizeDropdown.show()
+    @IBAction func didTapPriority(_ sender: UIButton) {
+        priorityDropdown.show()
     }
+
     
     @IBAction func didTapleRemind(_ sender: UIButton) {
         remindDropdown.show()
@@ -118,20 +119,21 @@ class CreateNoteViewController: UIViewController {
     @IBAction func didTapCreate(_ sender: UIButton) {
         
         let namework = nameWorkTextField.text ?? ""
-        let prioritize = prioritizeLabel.text ?? ""
+        let priority = priorityLabel.text ?? ""
         let remind = remindLabel.text ?? ""
         let note = noteTextView.text ?? ""
         let dateTime = datePickerView.date
         
         let dataStore = Firestore.firestore()
-        if namework.isEmpty || prioritize.isEmpty || remind.isEmpty || note.isEmpty {
+        if namework.isEmpty || priority.isEmpty || remind.isEmpty || note.isEmpty {
             let alert = UIAlertController(title: "Lỗi", message: "Hãy nhập thông tin của bạn", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default))
             self.present(alert, animated: true, completion: nil)
         } else {
             var ref: DocumentReference?
-            ref = dataStore.collection("works").addDocument(data: ["name": namework,
-                                                                   "prioritize": prioritize,
+            let email = UserDefaults.standard.currentEmail ?? ""
+            ref = dataStore.collection("users").document(email).collection("works").addDocument(data: ["name": namework,
+                                                                   "priority": priority,
                                                                    "remind": remind,
                                                                    "note": note,
                                                                    "dateTime": dateTime
@@ -140,16 +142,13 @@ class CreateNoteViewController: UIViewController {
                     print("Error adding document: \(err)")
                 } else {
                     let documentId: String = ref?.documentID ?? ""
-                    dataStore.collection("works").document(documentId).updateData(["id": documentId]) { _ in
+                    dataStore.collection("users").document(email).collection("works").document(documentId).updateData(["id": documentId]) { _ in
                     }
                 }
             }
         }
-        let alert = UIAlertController(title: "Thông báo", message: "Bạn đã tạo 1 công việc mới, vui lòng chuyển sang mục công việc để xem", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Thông báo", message: "Bạn đã tạo 1 công việc mới", preferredStyle: .alert)
         let actionOK = UIAlertAction(title: "OK", style: .default) {_ in
-//            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//            let vc = storyboard.instantiateViewController(withIdentifier: "CreateNoteViewController") as! CreateNoteViewController
-//            self.navigationController?.pushViewController(vc, animated: true)
             AppDelegate.scene?.gotoHome()
         }
         alert.addAction(actionOK)

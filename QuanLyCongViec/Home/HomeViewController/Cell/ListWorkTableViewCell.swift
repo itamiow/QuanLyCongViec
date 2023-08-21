@@ -16,8 +16,8 @@ class ListWorkTableViewCell: UITableViewCell {
     @IBOutlet weak var nameworkLable: UILabel!
     @IBOutlet weak var noteLable: UILabel!
     
-    @IBOutlet weak var colorPrioritizeView: UIView!
-    @IBOutlet weak var prioritizeLable: UILabel!
+    @IBOutlet weak var colorPriorityView: UIView!
+    @IBOutlet weak var priorityLable: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var remindLable: UILabel!
     
@@ -45,7 +45,7 @@ class ListWorkTableViewCell: UITableViewCell {
         super.awakeFromNib()
         myView.layer.cornerRadius = 15
         editView.layer.cornerRadius = 10
-        colorPrioritizeView.layer.cornerRadius = self.colorPrioritizeView.frame.height/2
+        colorPriorityView.layer.cornerRadius = self.colorPriorityView.frame.height/2
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -66,20 +66,20 @@ class ListWorkTableViewCell: UITableViewCell {
         noteLable.text = "Ghi chú: \(model.note)"
         remindLable.text = "Nhắc nhở: \(model.remind.rawValue)"
         
-        switch model.prioritize {
+        switch model.priority {
         case .low:
-            prioritizeLable.text = "Mức độ ưu tiên: Thấp"
-            self.colorPrioritizeView.backgroundColor = UIColor(hex: "0500FF")
+            priorityLable.text = "Mức độ ưu tiên: Thấp"
+            self.colorPriorityView.backgroundColor = UIColor(hex: "0500FF")
             
         case .medium:
-            prioritizeLable.text = "Mức độ ưu tiên: Trung bình"
-            self.colorPrioritizeView.backgroundColor = UIColor(hex: "FFF500")
+            priorityLable.text = "Mức độ ưu tiên: Trung bình"
+            self.colorPriorityView.backgroundColor = UIColor(hex: "FFF500")
         case .hight:
-            prioritizeLable.text = "Mức độ ưu tiên: Cao"
-            self.colorPrioritizeView.backgroundColor = UIColor(hex: "FF0000")
+            priorityLable.text = "Mức độ ưu tiên: Cao"
+            self.colorPriorityView.backgroundColor = UIColor(hex: "FF0000")
         case .none:
-            prioritizeLable.text = "Mức độ ưu tiên: Không có"
-            self.colorPrioritizeView.backgroundColor = UIColor(hex: "E3EFFF")
+            priorityLable.text = "Mức độ ưu tiên: Không có"
+            self.colorPriorityView.backgroundColor = UIColor(hex: "E3EFFF")
         }
         
         let date = model.dateTime

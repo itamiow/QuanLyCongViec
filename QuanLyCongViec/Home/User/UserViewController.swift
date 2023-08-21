@@ -33,7 +33,8 @@ class UserViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUp()
-        
+        handleData()
+        print("😍 UserViewController viewDidLoad")
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -47,6 +48,7 @@ class UserViewController: UIViewController {
         cameraView.layer.cornerRadius = self.cameraView.layer.bounds.height/2
         view.layoutIfNeeded()
         
+        print("😍 UserViewController viewDidAppear")
         handleData()
     }
     
@@ -143,7 +145,7 @@ class UserViewController: UIViewController {
     
     @IBAction func didTapLogout(_ sender: UIButton) {
         let firebaseAuth = Auth.auth()
-        let alertController = UIAlertController(title: "Bạn có muốn đăng xuất tài khoản", message: nil, preferredStyle: .actionSheet)
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let logout: UIAlertAction = UIAlertAction(title: "Đăng xuất", style: .destructive) {_ in
             do {
                 try firebaseAuth.signOut()
@@ -164,20 +166,35 @@ class UserViewController: UIViewController {
     }
     
     func handleData() {
-        let docRef = self.dataStore.collection("users")
-        docRef.getDocuments {(snapshot, error) in
+        guard let currentEmail = Auth.auth().currentUser?.email else {
+            return
+            
+        }
+        let docRef = self.dataStore.collection("users").document(currentEmail)
+        
+        docRef.getDocument { [weak self] snapshot, error in
+            
+            guard let strongSelf = self else {
+                return
+            }
+            
             if let error = error {
-                print("Error getting documents: \(error)")
+                print(error.localizedDescription)
             } else {
-                for document in snapshot!.documents {
-                    let data = document.data()
-                    if let email = data["email"] as? String, let usersName = data["usersName"] as? String, let image = data["image"] as? String {
-                        self.emailLabel.text = email
-                        self.userNameLabel.text = usersName
-                        self.avatarImage.kf.setImage(with: URL(string: image))
-                        print(image)
-                        print(self.avatarImage.image)
+                if let data = snapshot?.data() {
+                    print(data)
+                    let email = data["email"] as? String
+                    let userName = data["usersName"] as? String
+                    let image = data["image"] as? String
+                    
+                    DispatchQueue.main.async {
+                        strongSelf.emailLabel.text = email
+                        strongSelf.userNameLabel.text = userName
+                        if let image = image {
+                            strongSelf.avatarImage.kf.setImage(with: URL(string: image))
+                        }
                     }
+                    
                 }
             }
         }
@@ -213,19 +230,10 @@ extension UserViewController: UIImagePickerControllerDelegate, UINavigationContr
             self.avatarImage.image = selectedImage
             
             //Lay email
-            self.dataStore.collection("users").getDocuments { snapshot, error in
-                if let error = error {
-                    print("Error getting documents: \(error)")
-                } else {
-                    for document in snapshot!.documents {
-                        let data = document.data()
-                        if let email = data["email"] as? String {
-                            //Update url vao firestore
-                            self.dataStore.collection("users").document(email).setData(["image": urlString], merge: true)
-                        }
-                    }
-                }
-            }
+            guard let currentEmail = Auth.auth().currentUser?.email else {return}
+            
+            //Update url vao firestore
+            self.dataStore.collection("users").document(currentEmail).setData(["image": urlString], merge: true)
         }
         DispatchQueue.main.async {
             self.avatarImage.image = selectedImage

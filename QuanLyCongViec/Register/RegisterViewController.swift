@@ -146,7 +146,6 @@ class RegisterViewController: UIViewController {
         dataStore.collection("users").document(email).setData([
             "usersName": userName,
             "email": email,
-            "image": ""
         ]) { err in
             if let err = err {
                 print("Error adding document: \(err)")
@@ -154,6 +153,7 @@ class RegisterViewController: UIViewController {
             }
         }
     }
+  
     
     func showAlert(message: String) {
         let alert = UIAlertController(title: "Thông báo!", message: message, preferredStyle: .alert)
@@ -161,13 +161,7 @@ class RegisterViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     func gotoLogin() {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let gotoLogin = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
-        guard let window = (UIApplication.shared.delegate as? AppDelegate)?.window else { return}
-        let nv = UINavigationController(rootViewController: gotoLogin)
-        nv.setNavigationBarHidden(true, animated: true)
-        window.rootViewController = nv
-        window.makeKeyAndVisible()
+        AppDelegate.scene?.routeLogin()
     }
     
     @IBAction func didTapLogin(_ sender: UIButton) {

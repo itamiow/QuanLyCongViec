@@ -47,13 +47,6 @@ class ForgotPasswordViewController: UIViewController {
         }
     }
     func gotoLogin(){
-//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//        let loginVC = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
-//        guard let window = (UIApplication.shared.delegate as? AppDelegate)?.window else { return}
-//        let nv = UINavigationController(rootViewController: loginVC)
-//        nv.setNavigationBarHidden(true, animated: true)
-//        window.rootViewController = nv
-//        window.makeKeyAndVisible()
         AppDelegate.scene?.routeLogin()
     }
 }
