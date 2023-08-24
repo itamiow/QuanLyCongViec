@@ -40,7 +40,8 @@ class MainTabbarViewController: ESTabBarController {
                                                  selectedImage: UIImage(named: "more"))
         let nav = UINavigationController(rootViewController: viewController)
         nav.setNavigationBarHidden(true, animated: true)
-        return nav } ()
+        return nav
+    } ()
     
     lazy var userVC: UIViewController =  {
         let viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "UserViewController")
@@ -52,6 +53,5 @@ class MainTabbarViewController: ESTabBarController {
         let nav = UINavigationController(rootViewController: viewController)
         nav.setNavigationBarHidden(true, animated: true)
         return nav
-        
     } ()
 }

@@ -17,15 +17,13 @@ class UserViewController: UIViewController {
     @IBOutlet weak var avatarImage: UIImageView!
     @IBOutlet weak var cameraView: UIView!
     @IBOutlet weak var cameraImage: UIImageView!
-    
     @IBOutlet weak var userNameView: UIView!
     @IBOutlet weak var userNameLabel: UILabel!
-    
     @IBOutlet weak var emailView: UIView!
     @IBOutlet weak var emailLabel: UILabel!
-    
     @IBOutlet weak var changePasswordView: UIView!
     @IBOutlet weak var logoutView: UIView!
+    
     let dataStore = Firestore.firestore()
     private var storage = Storage.storage().reference()
     var imagePicker: UIImagePickerController!
@@ -33,8 +31,6 @@ class UserViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUp()
-        handleData()
-        print("😍 UserViewController viewDidLoad")
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -47,8 +43,6 @@ class UserViewController: UIViewController {
         avatarImage.clipsToBounds = true
         cameraView.layer.cornerRadius = self.cameraView.layer.bounds.height/2
         view.layoutIfNeeded()
-        
-        print("😍 UserViewController viewDidAppear")
         handleData()
     }
     
@@ -68,7 +62,6 @@ class UserViewController: UIViewController {
         changePasswordView.layer.cornerRadius = 10
         changePasswordView.layer.borderWidth = 1
         changePasswordView.layer.borderColor = UIColor.black.cgColor
-        
         logoutView.backgroundColor = UIColor(hex: "E3EFFF")
     }
     
@@ -82,7 +75,7 @@ class UserViewController: UIViewController {
     }
     @IBAction func didTapCamera(_ sender: UIButton) {
         let actionSheetController: UIAlertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        let albumsAction: UIAlertAction = UIAlertAction(title: "Albums", style: .default) {_ in PHPhotoLibrary.requestAuthorization(for: .addOnly) {status in
+        let albumsAction: UIAlertAction = UIAlertAction(title: "Bộ sưu tập", style: .default) {_ in PHPhotoLibrary.requestAuthorization(for: .addOnly) {status in
             if status == .authorized {
                 DispatchQueue.main.async {
                     self.imagePicker.allowsEditing = true
@@ -101,7 +94,7 @@ class UserViewController: UIViewController {
         }
         }
         
-        let cameraAction: UIAlertAction = UIAlertAction(title: "Camera", style: .default) {_ in
+        let cameraAction: UIAlertAction = UIAlertAction(title: "Máy ảnh", style: .default) {_ in
             AVCaptureDevice.requestAccess(for: .video) {response in
                 if response {
                     if UIImagePickerController.isSourceTypeAvailable(.camera) {
@@ -173,7 +166,6 @@ class UserViewController: UIViewController {
         let docRef = self.dataStore.collection("users").document(currentEmail)
         
         docRef.getDocument { [weak self] snapshot, error in
-            
             guard let strongSelf = self else {
                 return
             }
@@ -190,11 +182,11 @@ class UserViewController: UIViewController {
                     DispatchQueue.main.async {
                         strongSelf.emailLabel.text = email
                         strongSelf.userNameLabel.text = userName
+                        self?.userNameLabel.text = userName
                         if let image = image {
                             strongSelf.avatarImage.kf.setImage(with: URL(string: image))
                         }
                     }
-                    
                 }
             }
         }
@@ -233,7 +225,9 @@ extension UserViewController: UIImagePickerControllerDelegate, UINavigationContr
             guard let currentEmail = Auth.auth().currentUser?.email else {return}
             
             //Update url vao firestore
-            self.dataStore.collection("users").document(currentEmail).setData(["image": urlString], merge: true)
+            self.dataStore.collection("users")
+                .document(currentEmail)
+                .setData(["image": urlString], merge: true)
         }
         DispatchQueue.main.async {
             self.avatarImage.image = selectedImage

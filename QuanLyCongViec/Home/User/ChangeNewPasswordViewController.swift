@@ -40,7 +40,7 @@ class ChangeNewPasswordViewController: UIViewController {
                 self.present(alert, animated: true)
                 return
             } else {
-                   let alert = UIAlertController(title: "Thông báo!", message: "Bạn đã đổi mật khẩu thành công", preferredStyle: .alert)
+                   let alert = UIAlertController(title: "Thông báo", message: "Bạn đã đổi mật khẩu thành công", preferredStyle: .alert)
                    alert.addAction(UIAlertAction(title: "OK", style: .default) {_ in
                        self.confirmChange()
                    })

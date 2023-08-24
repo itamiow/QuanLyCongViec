@@ -119,7 +119,7 @@ class RegisterViewController: UIViewController {
                     self.present(alert, animated: true)
                     return
                 }
-                let showAlert = UIAlertController(title: "Thông báo!", message: "Đăng ký thành công", preferredStyle: .alert)
+                let showAlert = UIAlertController(title: "Thông báo", message: "Đăng ký thành công", preferredStyle: .alert)
                 showAlert.addAction(UIAlertAction(title: "OK", style: .default) {_ in
                     self.gotoLogin()
                     self.handleData(userName: userName, email: email, password: password, confirmpassword: confirmpassword)
@@ -156,7 +156,7 @@ class RegisterViewController: UIViewController {
   
     
     func showAlert(message: String) {
-        let alert = UIAlertController(title: "Thông báo!", message: message, preferredStyle: .alert)
+        let alert = UIAlertController(title: "Thông báo", message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default))
         self.present(alert, animated: true, completion: nil)
     }

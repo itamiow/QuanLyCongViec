@@ -11,11 +11,6 @@ import FirebaseAuth
 import FirebaseFirestore
 import UserNotifications
 
-struct MyRemind {
-    var title: String
-    var body: String
-    var date: Date
-}
 class CreateNoteViewController: UIViewController {
     
     @IBOutlet weak var createNoteButton: UIButton!
@@ -31,9 +26,7 @@ class CreateNoteViewController: UIViewController {
     @IBOutlet weak var timeView: UIView!
     
     @IBOutlet weak var noteTextView: UITextView!
-    
-    var models = [MyRemind]()
-    
+
     let priorityDropdown = DropDown()
     let remindDropdown = DropDown()
     var dataPriority: [String] = ["Thấp", "Trung bình", "Cao"]
@@ -44,19 +37,16 @@ class CreateNoteViewController: UIViewController {
         priorityView.layer.cornerRadius = 5
         remindView.layer.cornerRadius = 5
         timeView.layer.cornerRadius = 5
-        
         createNoteButton.layer.cornerRadius = self.createNoteButton.frame.height/2
         createNoteButton.layer.borderColor = UIColor.white.cgColor
         createNoteButton.layer.borderWidth = 2
         timeView.layer.cornerRadius = 5
         noteTextView.layer.cornerRadius = 5
-        
         colorPriorityView.layer.cornerRadius = self.colorPriorityView.frame.height/2
         colorPriorityView.backgroundColor = UIColor(hex: "E3EFFF")
-        
-       
         setupPriority()
         setupTime()
+        
     }
     
     func setupPriority() {
@@ -91,9 +81,7 @@ class CreateNoteViewController: UIViewController {
         remindDropdown.selectionAction = { (index: Int, item: String) in
             self.remindLabel.text = self.dataRemind[index]
             self.remindLabel.textColor = .black
-            if item == "Không có" {
-                self.datePickerView.date = self.datePickerView.date
-            }else if item == "Báo trước 15p" {
+           if item == "Báo trước 15p" {
                 self.datePickerView.date = Date().addingTimeInterval(900)
             } else if item == "Báo trước 20p" {
                 self.datePickerView.date = Date().addingTimeInterval(1200)
@@ -109,12 +97,11 @@ class CreateNoteViewController: UIViewController {
     @IBAction func didTapPriority(_ sender: UIButton) {
         priorityDropdown.show()
     }
-
+    
     
     @IBAction func didTapleRemind(_ sender: UIButton) {
         remindDropdown.show()
     }
-    
     
     @IBAction func didTapCreate(_ sender: UIButton) {
         
@@ -132,17 +119,24 @@ class CreateNoteViewController: UIViewController {
         } else {
             var ref: DocumentReference?
             let email = UserDefaults.standard.currentEmail ?? ""
-            ref = dataStore.collection("users").document(email).collection("works").addDocument(data: ["name": namework,
-                                                                   "priority": priority,
-                                                                   "remind": remind,
-                                                                   "note": note,
-                                                                   "dateTime": dateTime
-                                                                  ]) { err in
+            ref = dataStore.collection("users")
+                .document(email)
+                .collection("works")
+                .addDocument(data: ["name": namework,
+                                    "priority": priority,
+                                    "remind": remind,
+                                    "note": note,
+                                    "dateTime": dateTime,
+                                    "isComplete": false
+                                   ]) { err in
                 if let err = err {
                     print("Error adding document: \(err)")
                 } else {
                     let documentId: String = ref?.documentID ?? ""
-                    dataStore.collection("users").document(email).collection("works").document(documentId).updateData(["id": documentId]) { _ in
+                    dataStore.collection("users")
+                        .document(email)
+                        .collection("works")
+                        .document(documentId).updateData(["id": documentId]) { _ in
                     }
                 }
             }

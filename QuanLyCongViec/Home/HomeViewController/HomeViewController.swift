@@ -8,13 +8,14 @@
 import UIKit
 import Foundation
 import FirebaseFirestore
+import FirebaseAuth
 class HomeViewController: UIViewController {
     
     @IBOutlet weak var myTableView: UITableView!
     @IBOutlet weak var emptyView: UIView!
 
     var listItem: [WorkItem] = []
-    
+    var model: WorkItem?
     override func viewDidLoad() {
         super.viewDidLoad()
         emptyView.isHidden = true
@@ -53,9 +54,18 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             editVC.model = item
             self?.navigationController?.pushViewController(editVC, animated: true)
         }
-        
+        cell.checkbox = item.isComplete!
         cell.didTapCheckwork = { [weak self] in
             cell.checkbox = !cell.checkbox
+            let dataStore = Firestore.firestore()
+            let email = UserDefaults.standard.currentEmail ?? ""
+            dataStore.collection("users")
+                .document(email)
+                .collection("works")
+                .document(item.id)
+                .updateData(["isComplete" : cell.checkbox]) { error in
+                print("update error \(error?.localizedDescription)")
+            }
         }
         return cell
     }

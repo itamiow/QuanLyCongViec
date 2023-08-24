@@ -17,7 +17,7 @@ class WorkItem: Decodable {
     var remind: RemindType = .none
     var dateTime: Date?
     var note: String = ""
-//    var isCompletion: Bool = false
+    var isComplete: Bool?
     enum CodingKeys: String, CodingKey {
         case id
         case name
@@ -25,7 +25,7 @@ class WorkItem: Decodable {
         case remind
         case dateTime
         case note
-//        case isCompletion
+        case isComplete
     }
     required convenience init(from decoder: Decoder) throws {
         self.init()
@@ -40,6 +40,7 @@ class WorkItem: Decodable {
         let timeStamp = try? container.decode(Timestamp.self, forKey: .dateTime)
         dateTime = timeStamp?.dateValue()
         note = try container.decode(String.self, forKey: .note)
+        isComplete = try container.decode(Bool.self, forKey: .isComplete)
         
     }
     
@@ -54,6 +55,7 @@ extension WorkItem: Encodable {
         try? container.encode(remind.rawValue, forKey: .remind)
         try? container.encode(dateTime, forKey: .dateTime)
         try container.encode(note, forKey: .note)
+        try? container.encode(isComplete, forKey: .isComplete)
         
     }
 }
@@ -76,7 +78,7 @@ enum RemindType: String {
 
 protocol ManagerWorkProtocol {
     func login(email: String, password: String, completion: @escaping((Bool) -> Void))
-    func register(username: String, email: String, password: String, confirmPassword: String, completion: @escaping ((Bool) -> Void))
+    func register(userName: String, email: String, password: String, confirmPassword: String, completion: @escaping ((Bool) -> Void))
     func resetPassword(email: String, completion: @escaping ((Bool) -> Void))
     
     func getListWork(completion: @escaping (([WorkItem]) -> Void))
@@ -86,6 +88,7 @@ protocol ManagerWorkProtocol {
 }
 
 final class ManagerWorkServices: ManagerWorkProtocol {
+    let dataStore = Firestore.firestore()
     static let shared: ManagerWorkProtocol = ManagerWorkServices()
     
     func login(email: String, password: String, completion: @escaping ((Bool) -> Void)) {
@@ -98,7 +101,7 @@ final class ManagerWorkServices: ManagerWorkProtocol {
         }
     }
     
-    func register(username: String, email: String, password: String, confirmPassword: String, completion: @escaping ((Bool) -> Void)) {
+    func register(userName: String, email: String, password: String, confirmPassword: String, completion: @escaping ((Bool) -> Void)) {
         Auth.auth().createUser(withEmail: email, password: password) {(authResult, error) in
             if let user = authResult?.user {
                 completion(true)
@@ -109,6 +112,7 @@ final class ManagerWorkServices: ManagerWorkProtocol {
     }
     
     func resetPassword(email: String, completion: @escaping ((Bool) -> Void)) {
+        
         Auth.auth().sendPasswordReset(withEmail: email) { error in
             if let error = error {
                 completion(true)
@@ -144,8 +148,9 @@ final class ManagerWorkServices: ManagerWorkProtocol {
     }
     
     func deleteListWork(id: String, completion: @escaping ((Bool) -> Void)) {
+        let email = UserDefaults.standard.currentEmail ?? ""
         let dataStore = Firestore.firestore()
-        dataStore.collection("works").document(id).delete() { err in
+        dataStore.collection("users").document(email).collection("works").document(id).delete() { err in
             if let err = err {
                 print("Error removing document: \(err)")
                 completion(false)

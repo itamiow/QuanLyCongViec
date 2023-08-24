@@ -31,8 +31,8 @@ class EditViewController: UIViewController {
     
     let priorityDropdown = DropDown()
     let remindDropdown = DropDown()
-    var dataPriority: [String] = ["Thấp", "Trung bình", "Cao"]
-    var dataRemind: [String] = ["Báo trước 15p", "Báo trước 20p", "Báo trước 25p", "Báo trước 30p"]
+    var dataPriority: [String] = ["Không có","Thấp", "Trung bình", "Cao"]
+    var dataRemind: [String] = ["Không có","Báo trước 15p", "Báo trước 20p", "Báo trước 25p", "Báo trước 30p"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,7 +63,10 @@ class EditViewController: UIViewController {
             alert.addAction(UIAlertAction(title: "OK", style: .default))
             self.present(alert, animated: true, completion: nil)
         } else {
-            dataStore.collection("works")
+            let email = UserDefaults.standard.currentEmail ?? ""
+            dataStore.collection("users")
+                .document(email)
+                .collection("works")
                 .document(model?.id ?? "")
                 .updateData(["name": namework,
                              "priority": priority,
@@ -92,7 +95,9 @@ class EditViewController: UIViewController {
         priorityDropdown.selectionAction = { (index: Int, item: String) in
             self.priorityLabel.text = self.dataPriority[index]
             self.priorityLabel.textColor = .black
-            if item == "Thấp" {
+            if item == "Không có" {
+                self.colorPriorityView.backgroundColor = UIColor(hex: "E3EFFF")
+            } else if item == "Thấp" {
                 self.colorPriorityView.backgroundColor = UIColor(hex: "0500FF")
             } else if item == "Trung bình" {
                 self.colorPriorityView.backgroundColor = UIColor(hex: "FFF500")
@@ -100,7 +105,9 @@ class EditViewController: UIViewController {
                 self.colorPriorityView.backgroundColor = UIColor(hex: "FF0000")
             }
         }
-        if priorityLabel.text == "Thấp" {
+        if priorityLabel.text == "Không có" {
+            self.colorPriorityView.backgroundColor = UIColor(hex: "E3EFFF")
+        } else if priorityLabel.text == "Thấp" {
             self.colorPriorityView.backgroundColor = UIColor(hex: "0500FF")
         } else if priorityLabel.text == "Trung bình" {
             self.colorPriorityView.backgroundColor = UIColor(hex: "FFF500")

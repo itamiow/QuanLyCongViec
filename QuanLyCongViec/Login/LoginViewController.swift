@@ -11,7 +11,6 @@ import FirebaseFirestore
 class LoginViewController: UIViewController {
     
     @IBOutlet weak var loginButton: UIButton!
-    
     @IBOutlet weak var yourEmailTextField: UITextField!
     @IBOutlet weak var yourPasswordTexField: UITextField!
     let dataStore = Firestore.firestore()
@@ -112,7 +111,7 @@ class LoginViewController: UIViewController {
     }
   
     func showAlert(message:String) {
-        let alert = UIAlertController(title: "Thông báo!", message: message, preferredStyle: .alert)
+        let alert = UIAlertController(title: "Thông báo", message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default))
         self.present(alert, animated: true, completion: nil)
     }
