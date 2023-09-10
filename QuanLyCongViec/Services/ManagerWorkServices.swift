@@ -102,17 +102,18 @@ final class ManagerWorkServices: ManagerWorkProtocol {
     }
     
     func register(userName: String, email: String, password: String, confirmPassword: String, completion: @escaping ((Bool) -> Void)) {
-        Auth.auth().createUser(withEmail: email, password: password) {(authResult, error) in
-            if let user = authResult?.user {
-                completion(true)
+        dataStore.collection("users").document(email).setData([
+            "usersName": userName,
+            "email": email
+        ]) { err in
+            if let err = err {
+                print("Error adding document: \(err)")
             } else {
-                completion(false)
             }
         }
     }
     
     func resetPassword(email: String, completion: @escaping ((Bool) -> Void)) {
-        
         Auth.auth().sendPasswordReset(withEmail: email) { error in
             if let error = error {
                 completion(true)
@@ -124,9 +125,9 @@ final class ManagerWorkServices: ManagerWorkProtocol {
     
     func getListWork(completion: @escaping (([WorkItem]) -> Void)) {
         let dataStore = Firestore.firestore()
-        let email = UserDefaults.standard.currentEmail ?? ""
+        let email = UserDefaultService.shared.currentEmail ?? ""
 
-        dataStore.collection("users").document(email).collection("works").getDocuments() { (querySnapshot, err) in
+        dataStore.collection("users").document(email).collection("works").getDocuments() {(querySnapshot, err) in
             var result: [WorkItem] = []
             if let err = err {
                 print("Error getting documents: \(err)")
@@ -148,7 +149,7 @@ final class ManagerWorkServices: ManagerWorkProtocol {
     }
     
     func deleteListWork(id: String, completion: @escaping ((Bool) -> Void)) {
-        let email = UserDefaults.standard.currentEmail ?? ""
+        let email = UserDefaultService.shared.currentEmail ?? ""
         let dataStore = Firestore.firestore()
         dataStore.collection("users").document(email).collection("works").document(id).delete() { err in
             if let err = err {

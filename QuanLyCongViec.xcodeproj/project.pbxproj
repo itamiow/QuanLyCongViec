@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		7139749C2A701AC60023A87E /* UserDefaultServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7139749A2A701AC50023A87E /* UserDefaultServices.swift */; };
-		7144625D2A936B5700E42DE5 /* UserDefault+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7144625C2A936B5700E42DE5 /* UserDefault+Extension.swift */; };
 		7145DEF52A68F80100C943B7 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7145DEF42A68F80100C943B7 /* LoginViewController.swift */; };
 		7145DEF72A6925D700C943B7 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7145DEF62A6925D700C943B7 /* RegisterViewController.swift */; };
 		7145DEF92A692A5E00C943B7 /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7145DEF82A692A5E00C943B7 /* ForgotPasswordViewController.swift */; };
@@ -21,9 +20,14 @@
 		7145DF1D2A69882500C943B7 /* ListWorkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7145DF1B2A69882500C943B7 /* ListWorkTableViewCell.xib */; };
 		7145DF1F2A6A2D5B00C943B7 /* ChangeUsernameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7145DF1E2A6A2D5B00C943B7 /* ChangeUsernameViewController.swift */; };
 		7145DF232A6A325900C943B7 /* ChangeNewPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7145DF222A6A325900C943B7 /* ChangeNewPasswordViewController.swift */; };
+		714A12802AA9B9D1004CAE4C /* ShowLoading+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714A127F2AA9B9D1004CAE4C /* ShowLoading+Extension.swift */; };
 		715095212A6BD59F007317BA /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715095202A6BD59F007317BA /* EditViewController.swift */; };
 		7150954A2A6D35A9007317BA /* ManagerWorkServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715095492A6D35A9007317BA /* ManagerWorkServices.swift */; };
 		7150954E2A6D7814007317BA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7150954D2A6D7813007317BA /* GoogleService-Info.plist */; };
+		715617502A9CDF5700FCAC3E /* NointernetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7156174E2A9CDF5700FCAC3E /* NointernetViewController.swift */; };
+		715617512A9CDF5700FCAC3E /* NointernetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7156174F2A9CDF5700FCAC3E /* NointernetViewController.xib */; };
+		715617532A9CDF7D00FCAC3E /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715617522A9CDF7D00FCAC3E /* NetworkMonitor.swift */; };
+		715617552A9CEE1300FCAC3E /* noInternet.json in Resources */ = {isa = PBXBuildFile; fileRef = 715617542A9CEE1300FCAC3E /* noInternet.json */; };
 		7187E96F2A8BC74D00A021CA /* animation.json in Resources */ = {isa = PBXBuildFile; fileRef = 7187E96E2A8BC74D00A021CA /* animation.json */; };
 		71D018932A7564F5003C60D5 /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D018922A7564F5003C60D5 /* TutorialViewController.swift */; };
 		71D018952A7565A2003C60D5 /* ScreenLetsgoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D018942A7565A2003C60D5 /* ScreenLetsgoViewController.swift */; };
@@ -40,7 +44,6 @@
 /* Begin PBXFileReference section */
 		174BDB8B737D5540A75C5878 /* Pods-QuanLyCongViec.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QuanLyCongViec.debug.xcconfig"; path = "Target Support Files/Pods-QuanLyCongViec/Pods-QuanLyCongViec.debug.xcconfig"; sourceTree = "<group>"; };
 		7139749A2A701AC50023A87E /* UserDefaultServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultServices.swift; sourceTree = "<group>"; };
-		7144625C2A936B5700E42DE5 /* UserDefault+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefault+Extension.swift"; sourceTree = "<group>"; };
 		7145DEF42A68F80100C943B7 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		7145DEF62A6925D700C943B7 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		7145DEF82A692A5E00C943B7 /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
@@ -53,9 +56,14 @@
 		7145DF1B2A69882500C943B7 /* ListWorkTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListWorkTableViewCell.xib; sourceTree = "<group>"; };
 		7145DF1E2A6A2D5B00C943B7 /* ChangeUsernameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeUsernameViewController.swift; sourceTree = "<group>"; };
 		7145DF222A6A325900C943B7 /* ChangeNewPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeNewPasswordViewController.swift; sourceTree = "<group>"; };
+		714A127F2AA9B9D1004CAE4C /* ShowLoading+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ShowLoading+Extension.swift"; sourceTree = "<group>"; };
 		715095202A6BD59F007317BA /* EditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
 		715095492A6D35A9007317BA /* ManagerWorkServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerWorkServices.swift; sourceTree = "<group>"; };
 		7150954D2A6D7813007317BA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		7156174E2A9CDF5700FCAC3E /* NointernetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NointernetViewController.swift; sourceTree = "<group>"; };
+		7156174F2A9CDF5700FCAC3E /* NointernetViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NointernetViewController.xib; sourceTree = "<group>"; };
+		715617522A9CDF7D00FCAC3E /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
+		715617542A9CEE1300FCAC3E /* noInternet.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = noInternet.json; sourceTree = "<group>"; };
 		7187E96E2A8BC74D00A021CA /* animation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = animation.json; sourceTree = "<group>"; };
 		71D018922A7564F5003C60D5 /* TutorialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialViewController.swift; sourceTree = "<group>"; };
 		71D018942A7565A2003C60D5 /* ScreenLetsgoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenLetsgoViewController.swift; sourceTree = "<group>"; };
@@ -88,7 +96,7 @@
 			isa = PBXGroup;
 			children = (
 				71F9C7212A683CC2007EAE78 /* UIColor+Extension.swift */,
-				7144625C2A936B5700E42DE5 /* UserDefault+Extension.swift */,
+				714A127F2AA9B9D1004CAE4C /* ShowLoading+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -175,11 +183,22 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
+		71949BA62A990B63004AA5C3 /* NoInternet */ = {
+			isa = PBXGroup;
+			children = (
+				715617522A9CDF7D00FCAC3E /* NetworkMonitor.swift */,
+				7156174E2A9CDF5700FCAC3E /* NointernetViewController.swift */,
+				7156174F2A9CDF5700FCAC3E /* NointernetViewController.xib */,
+			);
+			path = NoInternet;
+			sourceTree = "<group>";
+		};
 		71AE67A22A8CBB6D00766659 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
 				71F9C7132A683BB0007EAE78 /* Assets.xcassets */,
 				7187E96E2A8BC74D00A021CA /* animation.json */,
+				715617542A9CEE1300FCAC3E /* noInternet.json */,
 			);
 			path = Assets;
 			sourceTree = "<group>";
@@ -205,8 +224,9 @@
 		71F9C7092A683BAF007EAE78 /* QuanLyCongViec */ = {
 			isa = PBXGroup;
 			children = (
-				7144625B2A936B2C00E42DE5 /* Extensions */,
 				715095482A6D3575007317BA /* Services */,
+				7144625B2A936B2C00E42DE5 /* Extensions */,
+				71949BA62A990B63004AA5C3 /* NoInternet */,
 				71F9C71E2A683BBA007EAE78 /* Tutorial */,
 				7145DEF22A68F7C300C943B7 /* Login */,
 				7145DEF32A68F7DA00C943B7 /* Register */,
@@ -310,10 +330,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				715617512A9CDF5700FCAC3E /* NointernetViewController.xib in Resources */,
 				7145DF1D2A69882500C943B7 /* ListWorkTableViewCell.xib in Resources */,
 				71F9C7172A683BB0007EAE78 /* LaunchScreen.storyboard in Resources */,
 				7150954E2A6D7814007317BA /* GoogleService-Info.plist in Resources */,
 				7187E96F2A8BC74D00A021CA /* animation.json in Resources */,
+				715617552A9CEE1300FCAC3E /* noInternet.json in Resources */,
 				71F9C7142A683BB0007EAE78 /* Assets.xcassets in Resources */,
 				71F9C7122A683BAF007EAE78 /* Main.storyboard in Resources */,
 			);
@@ -372,6 +394,7 @@
 				7145DF072A694C1200C943B7 /* CustomStyleTabBarContentView.swift in Sources */,
 				7145DF0F2A69734D00C943B7 /* CreateNoteViewController.swift in Sources */,
 				7145DF052A694B9900C943B7 /* MainTabbarViewController.swift in Sources */,
+				715617502A9CDF5700FCAC3E /* NointernetViewController.swift in Sources */,
 				7145DEF52A68F80100C943B7 /* LoginViewController.swift in Sources */,
 				7145DF232A6A325900C943B7 /* ChangeNewPasswordViewController.swift in Sources */,
 				71F9C70F2A683BAF007EAE78 /* ViewController.swift in Sources */,
@@ -379,7 +402,7 @@
 				7145DF1F2A6A2D5B00C943B7 /* ChangeUsernameViewController.swift in Sources */,
 				71F9C70B2A683BAF007EAE78 /* AppDelegate.swift in Sources */,
 				7150954A2A6D35A9007317BA /* ManagerWorkServices.swift in Sources */,
-				7144625D2A936B5700E42DE5 /* UserDefault+Extension.swift in Sources */,
+				714A12802AA9B9D1004CAE4C /* ShowLoading+Extension.swift in Sources */,
 				7145DEF72A6925D700C943B7 /* RegisterViewController.swift in Sources */,
 				71F9C7222A683CC2007EAE78 /* UIColor+Extension.swift in Sources */,
 				7139749C2A701AC60023A87E /* UserDefaultServices.swift in Sources */,
@@ -389,6 +412,7 @@
 				7145DF1C2A69882500C943B7 /* ListWorkTableViewCell.swift in Sources */,
 				71D018952A7565A2003C60D5 /* ScreenLetsgoViewController.swift in Sources */,
 				7145DF012A693C5200C943B7 /* HomeViewController.swift in Sources */,
+				715617532A9CDF7D00FCAC3E /* NetworkMonitor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

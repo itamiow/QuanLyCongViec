@@ -7,12 +7,14 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseFirestore
+import FirebaseCore
 class ChangeNewPasswordViewController: UIViewController {
-
+    
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var confirmPasswordTextField: UITextField!
     @IBOutlet weak var changeNewPasswordButton: UIButton!
-    
+    let dataStore = Firestore.firestore()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,25 +32,48 @@ class ChangeNewPasswordViewController: UIViewController {
     @IBAction func didTapChangeNewPassword(_ sender: UIButton) {
         let password = passwordTextField.text ?? ""
         let confirmPassword = confirmPasswordTextField.text ?? ""
-  
-        Auth.auth().currentUser?.updatePassword(to: password) { [weak self] error in
-            guard let self = self else { return }
-            if password.isEmpty || confirmPassword.isEmpty {
-                let alert = UIAlertController(title: "Lỗi", message: "Hãy nhập mật khẩu mới của bạn", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "OK", style: .default) {_ in
-                })
-                self.present(alert, animated: true)
-                return
-            } else {
-                   let alert = UIAlertController(title: "Thông báo", message: "Bạn đã đổi mật khẩu thành công", preferredStyle: .alert)
-                   alert.addAction(UIAlertAction(title: "OK", style: .default) {_ in
-                       self.confirmChange()
-                   })
-                   self.present(alert, animated: true, completion: nil)
+        if password.isEmpty || confirmPassword.isEmpty {
+            let message = "Hãy nhập mật khẩu mới của bạn"
+            showAlert(message: message)
+            return
+        }
+        if password.isEmpty {
+            let message = "Mật khẩu là cần thiết"
+            showAlert(message: message)
+            return
+        }
+        if password.count < 6 {
+            let message = "Mật khẩu phải có ít nhất 6 kí tự"
+            showAlert(message: message)
+            return
+        }
+        if password.count > 40 {
+            let message = "Mật khẩu không được quá 40 kí tự"
+            showAlert(message: message)
+            return
+        }
+        if confirmPassword.isEmpty {
+            let message = "Nhập lại mật khẩu là cần thiết"
+            showAlert(message: message)
+            return
+        }
+        
+        self.validationOfTextFields()
+        let currentUser = Auth.auth().currentUser
+            currentUser?.updatePassword(to: password) { error in
+                if let error = error {
+                    print("failure")
+                } else {
+                    let alert = UIAlertController(title: "Thông báo", message: "Bạn đã đổi mật khẩu thành công", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default) {_ in
+                        self.confirmChange()
+                    })
+                    self.present(alert, animated: true, completion: nil)
+                    print("success")
+                }
             }
         }
-        validationOfTextFields()
-    }
+    
     func confirmChange(){
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let userVC = storyboard.instantiateViewController(withIdentifier: "UserViewController")
@@ -66,7 +91,11 @@ class ChangeNewPasswordViewController: UIViewController {
         }
         return a
     }
-}
     
-
-
+    func showAlert(message: String) {
+        let alert = UIAlertController(title: "Thông Báo", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        self.present(alert, animated: true)
+    }
+    
+}

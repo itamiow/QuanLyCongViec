@@ -8,11 +8,12 @@
 import UIKit
 import FirebaseAuth
 import FirebaseFirestore
+import MBProgressHUD
 class LoginViewController: UIViewController {
     
     @IBOutlet weak var loginButton: UIButton!
-    @IBOutlet weak var yourEmailTextField: UITextField!
-    @IBOutlet weak var yourPasswordTexField: UITextField!
+    @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet weak var passwordTexField: UITextField!
     let dataStore = Firestore.firestore()
     
     override func viewDidLoad() {
@@ -21,8 +22,8 @@ class LoginViewController: UIViewController {
         loginButton.layer.borderWidth = 2
         loginButton.layer.borderColor = UIColor.white.cgColor
         navigationController?.isNavigationBarHidden = true
-        yourEmailTextField.text = "quangvien@gmail.com"
-        yourPasswordTexField.text = "123123"
+        emailTextField.text = "quangvien@gmail.com"
+        passwordTexField.text = "123123"
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -31,7 +32,6 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func didTapRegister(_ sender: UIButton) {
-        
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let registerVC = storyboard.instantiateViewController(withIdentifier: "RegisterViewController") as! RegisterViewController
         navigationController?.pushViewController(registerVC, animated: true)
@@ -44,9 +44,8 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func didTapLogin(_ sender: UIButton) {
-        let email = yourEmailTextField.text ?? ""
-        let password = yourPasswordTexField.text ?? ""
-       
+        let email = emailTextField.text ?? ""
+        let password = passwordTexField.text ?? ""
         let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
         let emailPredicate = NSPredicate(format:"SELF MATCHES %@", emailRegex)
         
@@ -72,8 +71,8 @@ class LoginViewController: UIViewController {
             showAlert(message: message)
             return
         }
-        if password.count < 4 {
-            let message = "Mật khẩu ít nhất phải có 4 kí tự trở lên"
+        if password.count < 6 {
+            let message = "Mật khẩu ít nhất phải có 6 kí tự trở lên"
             showAlert(message: message)
             return
         }
@@ -89,34 +88,35 @@ class LoginViewController: UIViewController {
     private func handleLogin(email: String, password: String) {
         loginButton.isEnabled = false
         loginButton.setTitle("Xin chờ...", for: .normal)
-        Auth.auth().signIn(withEmail: email, password: password) { [weak self] authResult, err in
-            guard let self = self else { return }
-            self.loginButton.isEnabled = true
-            self.loginButton.setTitle("Đăng nhập", for: .normal)
+        self.showLoading(isShow: true)
+        Auth.auth().signIn(withEmail: email, password: password) {[weak self] authResult, err in
+            guard let strongSelf = self else { return }
+            self?.loginButton.isEnabled = true
+            self?.loginButton.setTitle("Đăng nhập", for: .normal)
+            self?.showLoading(isShow: false)
             guard err == nil else {
                 var message = ""
                 switch AuthErrorCode.Code(rawValue: err!._code) {
+                case .wrongPassword:
+                    message = "Mật khẩu chưa đúng! Vui lòng nhập lại"
                 default:
-                    message = "Email hoặc mật khẩu chưa đúng"
+                    message = "Email chưa đúng! Vui lòng nhập lại"
                 }
                 let alert = UIAlertController(title: "Lỗi", message: message, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default))
-                self.present(alert, animated: true)
+                self?.present(alert, animated: true)
                 return
+                
             }
-            self.gotoHome()
-            UserDefaults.standard.currentEmail = email
-            UserDefaults.standard.set(true, forKey: "isLoggedIn")
+            AppDelegate.scene?.routeToHome()
+            UserDefaultService.shared.currentEmail = email
+            UserDefaultService.shared.isLoggedIn = true
         }
     }
-  
+    
     func showAlert(message:String) {
         let alert = UIAlertController(title: "Thông báo", message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default))
         self.present(alert, animated: true, completion: nil)
-    }
-    
-    func gotoHome() {
-        AppDelegate.scene?.gotoHome()
     }
 }

@@ -10,7 +10,8 @@
 #endif
 #endif
 
+#import "MBProgressHUD.h"
 
-FOUNDATION_EXPORT double KeychainSwiftVersionNumber;
-FOUNDATION_EXPORT const unsigned char KeychainSwiftVersionString[];
+FOUNDATION_EXPORT double MBProgressHUDVersionNumber;
+FOUNDATION_EXPORT const unsigned char MBProgressHUDVersionString[];
 

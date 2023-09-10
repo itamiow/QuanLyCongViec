@@ -1,12 +1,11 @@
 //
 //  UserDefaultServices.swift
+//  QuanLyCongViec
 //
-//  Created by USER on 09/06/2023.
+//  Created by Quang Viện on 21/08/2023.
 //
 
 import Foundation
-import KeychainSwift
-
 
 class UserDefaultService {
     
@@ -15,6 +14,8 @@ class UserDefaultService {
     
     private enum Keys: String {
         case Tutorial
+        case kLoggedIn
+        case emailUserKey
     }
     
     private init() {
@@ -31,8 +32,30 @@ class UserDefaultService {
         }
     }
     
+    var isLoggedIn: Bool {
+        get {
+            return standard.bool(forKey: Keys.kLoggedIn.rawValue)
+        }
+        set {
+            standard.set(newValue, forKey: Keys.kLoggedIn.rawValue)
+            standard.synchronize()
+        }
+    }
+    
+    var currentEmail: String? {
+        get {
+            return standard.string(forKey: Keys.emailUserKey.rawValue)
+        }
+        set {
+            standard.set(newValue, forKey: Keys.emailUserKey.rawValue)
+        }
+    }
+    
+    
     func clearAll() {
         standard.removeObject(forKey: Keys.Tutorial.rawValue)
+        standard.removeObject(forKey: Keys.kLoggedIn.rawValue)
+        standard.removeObject(forKey: Keys.emailUserKey.rawValue)
     }
     
 }

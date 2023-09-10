@@ -92,17 +92,17 @@ class UserViewController: UIViewController {
                 self.openSetting()
             }
         }
-        }
+    }
         
         let cameraAction: UIAlertAction = UIAlertAction(title: "Máy ảnh", style: .default) {_ in
             AVCaptureDevice.requestAccess(for: .video) {response in
                 if response {
                     if UIImagePickerController.isSourceTypeAvailable(.camera) {
                         DispatchQueue.main.async {
-                            self.imagePicker.allowsEditing = false
+                            self.imagePicker.allowsEditing = true
                             self.imagePicker.sourceType = UIImagePickerController.SourceType.camera
                             self.imagePicker.cameraCaptureMode = .photo
-                            self.imagePicker.cameraDevice = .front
+                            self.imagePicker.cameraDevice = .rear
                             self.imagePicker.modalPresentationStyle = .fullScreen
                             self.present(self.imagePicker, animated: true)
                         }
@@ -139,33 +139,29 @@ class UserViewController: UIViewController {
     @IBAction func didTapLogout(_ sender: UIButton) {
         let firebaseAuth = Auth.auth()
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        let logout: UIAlertAction = UIAlertAction(title: "Đăng xuất", style: .destructive) {_ in
+        let logOut: UIAlertAction = UIAlertAction(title: "Đăng xuất", style: .destructive) {_ in
             do {
                 try firebaseAuth.signOut()
-                UserDefaults.standard.set(false, forKey: "isLoggedIn")
-                self.gotoLogin()
+                UserDefaultService.shared.clearAll()
+                AppDelegate.scene?.routeLogin()
             } catch {
                 print("Lỗi đăng xuất")
             }
         }
         let cancel: UIAlertAction = UIAlertAction(title: "Huỷ", style: .cancel) {_ in
         }
-        alertController.addAction(logout)
+        alertController.addAction(logOut)
         alertController.addAction(cancel)
         self.present(alertController, animated: true)
-    }
-    func gotoLogin(){
-        AppDelegate.scene?.routeLogin()
     }
     
     func handleData() {
         guard let currentEmail = Auth.auth().currentUser?.email else {
             return
-            
         }
         let docRef = self.dataStore.collection("users").document(currentEmail)
         
-        docRef.getDocument { [weak self] snapshot, error in
+        docRef.getDocument {[weak self] snapshot, error in
             guard let strongSelf = self else {
                 return
             }
@@ -182,7 +178,7 @@ class UserViewController: UIViewController {
                     DispatchQueue.main.async {
                         strongSelf.emailLabel.text = email
                         strongSelf.userNameLabel.text = userName
-                        self?.userNameLabel.text = userName
+//                        self?.userNameLabel.text = userName
                         if let image = image {
                             strongSelf.avatarImage.kf.setImage(with: URL(string: image))
                         }
@@ -195,7 +191,6 @@ class UserViewController: UIViewController {
 extension UserViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         var urlString: String?
-        
         imagePicker.dismiss(animated: true, completion: nil)
         guard let selectedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage else {
             print("Error: \(info)")
@@ -218,16 +213,16 @@ extension UserViewController: UIImagePickerControllerDelegate, UINavigationContr
                 return
             }
             urlString = url.absoluteString
-            print("Download \(urlString)")
+            print("Download \(urlString!)")
             self.avatarImage.image = selectedImage
             
-            //Lay email
+            //Lấy email
             guard let currentEmail = Auth.auth().currentUser?.email else {return}
             
-            //Update url vao firestore
+            //Update url vào firestore
             self.dataStore.collection("users")
                 .document(currentEmail)
-                .setData(["image": urlString], merge: true)
+                .setData(["image": urlString!], merge: true)
         }
         DispatchQueue.main.async {
             self.avatarImage.image = selectedImage

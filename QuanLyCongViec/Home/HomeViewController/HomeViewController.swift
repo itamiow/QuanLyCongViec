@@ -36,7 +36,6 @@ class HomeViewController: UIViewController {
             self?.myTableView.reloadData()
         }
     }
-   
 }
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -55,10 +54,10 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             self?.navigationController?.pushViewController(editVC, animated: true)
         }
         cell.checkbox = item.isComplete!
-        cell.didTapCheckwork = { [weak self] in
+        cell.didTapCheckwork = {[weak self] in
             cell.checkbox = !cell.checkbox
             let dataStore = Firestore.firestore()
-            let email = UserDefaults.standard.currentEmail ?? ""
+            let email = UserDefaultService.shared.currentEmail ?? ""
             dataStore.collection("users")
                 .document(email)
                 .collection("works")
@@ -70,7 +69,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        ManagerWorkServices.shared.deleteListWork(id: listItem[indexPath.row].id) { [weak self] status in
+        ManagerWorkServices.shared.deleteListWork(id: listItem[indexPath.row].id) {[weak self] status in
             if status {
                 self?.fetchData()
             } else {

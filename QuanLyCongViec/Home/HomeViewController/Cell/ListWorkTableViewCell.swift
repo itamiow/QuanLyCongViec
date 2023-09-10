@@ -10,17 +10,13 @@ import UIKit
 class ListWorkTableViewCell: UITableViewCell {
     
     @IBOutlet weak var editView: UIView!
-    
     @IBOutlet weak var myView: UIView!
-    
     @IBOutlet weak var nameworkLable: UILabel!
     @IBOutlet weak var noteLable: UILabel!
-    
     @IBOutlet weak var colorPriorityView: UIView!
     @IBOutlet weak var priorityLable: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var remindLable: UILabel!
-    
     @IBOutlet weak var checkworkImage: UIImageView!
     @IBOutlet weak var workStatusLabel: UILabel!
     
@@ -33,7 +29,7 @@ class ListWorkTableViewCell: UITableViewCell {
             } else {
                 checkworkImage.image = UIImage(named: "checkmark")
                 workStatusLabel.text = "Đã hoàn thành"
-                myView.backgroundColor = UIColor(hex: "AFFFB9")
+                myView.backgroundColor = UIColor(hex: "AFFFA8")
             }
         }
     }
@@ -70,7 +66,6 @@ class ListWorkTableViewCell: UITableViewCell {
         case .low:
             priorityLable.text = "Mức độ ưu tiên: Thấp"
             self.colorPriorityView.backgroundColor = UIColor(hex: "0500FF")
-            
         case .medium:
             priorityLable.text = "Mức độ ưu tiên: Trung bình"
             self.colorPriorityView.backgroundColor = UIColor(hex: "FFF500")
@@ -85,6 +80,6 @@ class ListWorkTableViewCell: UITableViewCell {
         let date = model.dateTime
         let formatter = DateFormatter()
         formatter.dateFormat = "dd/MM/yyyy, HH:mm"
-        timeLabel.text = "Thời gian: \(formatter.string(from: date! ))"
+        timeLabel.text = "Thời gian: \(formatter.string(from: date!))"
     }
 }

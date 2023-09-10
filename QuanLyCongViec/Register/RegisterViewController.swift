@@ -12,7 +12,6 @@ import FirebaseFirestore
 class RegisterViewController: UIViewController {
     
     @IBOutlet weak var registerButton: UIButton!
-    
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -52,7 +51,7 @@ class RegisterViewController: UIViewController {
             return
         }
         if userName.count > 30 {
-            let message = "Tên nguời dùng không được quá 40 kí tự"
+            let message = "Tên nguời dùng không được quá 30 kí tự"
             showAlert(message: message)
             return
         }
@@ -73,8 +72,8 @@ class RegisterViewController: UIViewController {
             showAlert(message: message)
             return
         }
-        if password.count < 4 {
-            let message = "Mật khẩu phải có ít nhất 4 kí tự"
+        if password.count < 6 {
+            let message = "Mật khẩu phải có ít nhất 6 kí tự"
             showAlert(message: message)
             return
         }
@@ -95,15 +94,17 @@ class RegisterViewController: UIViewController {
     private func handleRegister(userName: String, email: String, password: String, confirmpassword: String) {
         registerButton.isEnabled = false
         registerButton.setTitle("Xin chờ...", for: .normal)
+        self.showLoading(isShow: true)
         if password != confirmpassword {
             self.validationOfTextFields()
             registerButton.isEnabled = true
             registerButton.setTitle("Đăng ký", for: .normal)
+            self.showLoading(isShow: false)
         } else {
-            Auth.auth().createUser(withEmail: email, password: password) { [weak self] authResult, err in
-                guard let self = self else { return }
-                self.registerButton.isEnabled = true
-                self.registerButton.setTitle("Đăng ký", for: .normal)
+            Auth.auth().createUser(withEmail: email, password: password) {[weak self] authResult, err in
+                guard let strongSelf = self else { return }
+                self?.registerButton.isEnabled = true
+                self?.registerButton.setTitle("Đăng ký", for: .normal)
                 guard err == nil else {
                     var message = ""
                     switch AuthErrorCode.Code(rawValue: err!._code) {
@@ -112,19 +113,21 @@ class RegisterViewController: UIViewController {
                     case .invalidEmail:
                         message = "Email không hợp lệ"
                     default:
-                        message = err?.localizedDescription ?? ""
+                        message = "Lỗi không xác định"
                     }
                     let alert = UIAlertController(title: "Lỗi", message: message, preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "OK", style: .default))
-                    self.present(alert, animated: true)
+                    self?.present(alert, animated: true)
                     return
                 }
                 let showAlert = UIAlertController(title: "Thông báo", message: "Đăng ký thành công", preferredStyle: .alert)
                 showAlert.addAction(UIAlertAction(title: "OK", style: .default) {_ in
-                    self.gotoLogin()
-                    self.handleData(userName: userName, email: email, password: password, confirmpassword: confirmpassword)
+                    AppDelegate.scene?.routeLogin()
+                    ManagerWorkServices().register(userName: userName, email: email, password: password, confirmPassword: confirmpassword) { response in
+                        guard response != nil else {return}
+                    }
                 })
-                self.present(showAlert, animated: true)
+                self?.present(showAlert, animated: true)
             }
         }
     }
@@ -133,35 +136,18 @@ class RegisterViewController: UIViewController {
         var a = false
         if passwordTextField.text != confirmPasswordTextField.text {
             let alertController = UIAlertController(title: "Lỗi", message: "Mật khẩu không khớp", preferredStyle: .alert)
-            let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-            alertController.addAction(defaultAction)
-            self.present(alertController, animated: true, completion: nil)
+            alertController.addAction(UIAlertAction(title: "OK", style: .default))
+            self.present(alertController, animated: true)
         } else {
             a = true
         }
         return a
     }
     
-    func handleData(userName: String, email: String, password: String, confirmpassword: String) {
-        dataStore.collection("users").document(email).setData([
-            "usersName": userName,
-            "email": email,
-        ]) { err in
-            if let err = err {
-                print("Error adding document: \(err)")
-            } else {
-            }
-        }
-    }
-  
-    
     func showAlert(message: String) {
         let alert = UIAlertController(title: "Thông báo", message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default))
         self.present(alert, animated: true, completion: nil)
-    }
-    func gotoLogin() {
-        AppDelegate.scene?.routeLogin()
     }
     
     @IBAction func didTapLogin(_ sender: UIButton) {

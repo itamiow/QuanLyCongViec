@@ -13,33 +13,30 @@ import UserNotifications
 
 class CreateNoteViewController: UIViewController {
     
-    @IBOutlet weak var createNoteButton: UIButton!
+    @IBOutlet weak var createButton: UIButton!
     @IBOutlet weak var nameWorkTextField: UITextField!
-    
     @IBOutlet weak var priorityView: UIView!
     @IBOutlet weak var colorPriorityView: UIView!
     @IBOutlet weak var priorityLabel: UILabel!
-    
     @IBOutlet weak var remindView: UIView!
     @IBOutlet weak var remindLabel: UILabel!
     @IBOutlet weak var datePickerView: UIDatePicker!
     @IBOutlet weak var timeView: UIView!
-    
     @IBOutlet weak var noteTextView: UITextView!
 
     let priorityDropdown = DropDown()
     let remindDropdown = DropDown()
-    var dataPriority: [String] = ["Thấp", "Trung bình", "Cao"]
-    var dataRemind: [String] = ["Báo trước 15p", "Báo trước 20p", "Báo trước 25p", "Báo trước 30p"]
+    var dataPriority: [String] = ["Không có","Thấp", "Trung bình", "Cao"]
+    var dataRemind: [String] = ["Không có","Báo trước 15p", "Báo trước 20p", "Báo trước 25p", "Báo trước 30p"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         priorityView.layer.cornerRadius = 5
         remindView.layer.cornerRadius = 5
         timeView.layer.cornerRadius = 5
-        createNoteButton.layer.cornerRadius = self.createNoteButton.frame.height/2
-        createNoteButton.layer.borderColor = UIColor.white.cgColor
-        createNoteButton.layer.borderWidth = 2
+        createButton.layer.cornerRadius = self.createButton.frame.height/2
+        createButton.layer.borderColor = UIColor.white.cgColor
+        createButton.layer.borderWidth = 2
         timeView.layer.cornerRadius = 5
         noteTextView.layer.cornerRadius = 5
         colorPriorityView.layer.cornerRadius = self.colorPriorityView.frame.height/2
@@ -60,7 +57,10 @@ class CreateNoteViewController: UIViewController {
         priorityDropdown.selectionAction = { (index: Int, item: String) in
             self.priorityLabel.text = self.dataPriority[index]
             self.priorityLabel.textColor = .black
-            if item == "Thấp" {
+            if item == "Không có" {
+                self.colorPriorityView.backgroundColor = UIColor(hex: "E3EFFF")
+                self.priorityLabel.textColor = .lightGray
+            } else if item == "Thấp" {
                 self.colorPriorityView.backgroundColor = UIColor(hex: "0500FF")
             } else if item == "Trung bình" {
                 self.colorPriorityView.backgroundColor = UIColor(hex: "FFF500")
@@ -81,7 +81,10 @@ class CreateNoteViewController: UIViewController {
         remindDropdown.selectionAction = { (index: Int, item: String) in
             self.remindLabel.text = self.dataRemind[index]
             self.remindLabel.textColor = .black
-           if item == "Báo trước 15p" {
+            if item == "Không có" {
+                self.datePickerView.date = Date().addingTimeInterval(0)
+                self.remindLabel.textColor = .lightGray
+            } else if item == "Báo trước 15p" {
                 self.datePickerView.date = Date().addingTimeInterval(900)
             } else if item == "Báo trước 20p" {
                 self.datePickerView.date = Date().addingTimeInterval(1200)
@@ -118,7 +121,7 @@ class CreateNoteViewController: UIViewController {
             self.present(alert, animated: true, completion: nil)
         } else {
             var ref: DocumentReference?
-            let email = UserDefaults.standard.currentEmail ?? ""
+            let email = UserDefaultService.shared.currentEmail ?? ""
             ref = dataStore.collection("users")
                 .document(email)
                 .collection("works")
@@ -136,14 +139,15 @@ class CreateNoteViewController: UIViewController {
                     dataStore.collection("users")
                         .document(email)
                         .collection("works")
-                        .document(documentId).updateData(["id": documentId]) { _ in
+                        .document(documentId)
+                        .updateData(["id": documentId]) {_ in
                     }
                 }
             }
         }
         let alert = UIAlertController(title: "Thông báo", message: "Bạn đã tạo 1 công việc mới", preferredStyle: .alert)
         let actionOK = UIAlertAction(title: "OK", style: .default) {_ in
-            AppDelegate.scene?.gotoHome()
+            AppDelegate.scene?.routeToHome()
         }
         alert.addAction(actionOK)
         self.present(alert, animated: true, completion: nil)
@@ -153,13 +157,13 @@ class CreateNoteViewController: UIViewController {
     func setupRemind() {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound], completionHandler: {success, error in
             if success {
-                self.notifacation()
+                self.notification()
             } else if error != nil {
                 print("error occured")
             }
         })
     }
-    func notifacation() {
+    func notification() {
         let content = UNMutableNotificationContent()
         content.title = "Thông báo"
         content.sound = .default

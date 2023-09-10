@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import KeychainSwift
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -18,10 +17,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScenen)
         (UIApplication.shared.delegate as? AppDelegate)?.window = window
         let isCompletedTutorial = UserDefaultService.shared.completedTutorial
+        let isLoggedIn = UserDefaultService.shared.isLoggedIn
+        let isReachableConnection = NetworkMonitor.shared.isReachable
+        
+        guard isReachableConnection else {
+            routeToNoInternet()
+            return
+        }
         if isCompletedTutorial {
-            let islogin = UserDefaults.standard.bool(forKey: "isLoggedIn")
-            if islogin {
-                gotoHome()
+            if isLoggedIn {
+                routeToHome()
             } else {
                 routeLogin()
             }
@@ -44,19 +49,25 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let LoginlVC = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
         guard let window = (UIApplication.shared.delegate as? AppDelegate)?.window else { return}
-        let navi = UINavigationController(rootViewController: LoginlVC)
-        navi.setNavigationBarHidden(true, animated: true)
-        window.rootViewController = navi
+        let nv = UINavigationController(rootViewController: LoginlVC)
+        nv.setNavigationBarHidden(true, animated: true)
+        window.rootViewController = nv
         window.makeKeyAndVisible()
     }
-    func gotoHome() {
+    func routeToHome() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let gotoHomeVC = storyboard.instantiateViewController(withIdentifier: "MainTabbarViewController")
         guard let window = (UIApplication.shared.delegate as? AppDelegate)?.window else { return}
-        let nav = UINavigationController(rootViewController: gotoHomeVC)
-        nav.setNavigationBarHidden(true, animated: true)
-        window.rootViewController = nav
+        let nv = UINavigationController(rootViewController: gotoHomeVC)
+        nv.setNavigationBarHidden(true, animated: true)
+        window.rootViewController = nv
         window.makeKeyAndVisible()
+    }
+    func routeToNoInternet() {
+        let noInternetAccessVC = NointernetViewController(nibName: "NointernetViewController", bundle: nil)
+        let nv = UINavigationController(rootViewController: noInternetAccessVC)
+        window?.rootViewController = nv
+        window?.makeKeyAndVisible()
     }
     func sceneDidDisconnect(_ scene: UIScene) {
     }

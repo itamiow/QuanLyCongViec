@@ -21,6 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         IQKeyboardManager.shared.keyboardAppearance = .default
         IQKeyboardManager.shared.shouldResignOnTouchOutside = true
         
+        NetworkMonitor.shared.startMonitoring()
+        
         return true
         
         

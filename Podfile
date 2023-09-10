@@ -11,11 +11,11 @@ pod 'FirebaseCore'
 pod 'FirebaseDatabase'
 pod 'FirebaseFirestoreSwift'
 pod 'IQKeyboardManagerSwift'
-pod 'KeychainSwift'
 pod 'DropDown'
 pod 'lottie-ios'
 pod 'FirebaseStorage'
 pod 'Kingfisher'
+pod 'MBProgressHUD', '~> 1.2.0'
   # Pods for QuanLyCongViec
 
 end
