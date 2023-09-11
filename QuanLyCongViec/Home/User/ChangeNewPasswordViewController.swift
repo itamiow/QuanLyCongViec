@@ -32,9 +32,11 @@ class ChangeNewPasswordViewController: UIViewController {
     @IBAction func didTapChangeNewPassword(_ sender: UIButton) {
         let password = passwordTextField.text ?? ""
         let confirmPassword = confirmPasswordTextField.text ?? ""
+        self.showLoading(isShow: true)
         if password.isEmpty || confirmPassword.isEmpty {
             let message = "Hãy nhập mật khẩu mới của bạn"
             showAlert(message: message)
+            showLoading(isShow: false)
             return
         }
         if password.isEmpty {
@@ -63,10 +65,12 @@ class ChangeNewPasswordViewController: UIViewController {
             currentUser?.updatePassword(to: password) { error in
                 if let error = error {
                     print("failure")
+                    self.showLoading(isShow: false)
                 } else {
                     let alert = UIAlertController(title: "Thông báo", message: "Bạn đã đổi mật khẩu thành công", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "OK", style: .default) {_ in
                         self.confirmChange()
+                        self.showLoading(isShow: false)
                     })
                     self.present(alert, animated: true, completion: nil)
                     print("success")

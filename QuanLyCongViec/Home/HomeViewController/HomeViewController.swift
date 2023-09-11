@@ -23,6 +23,7 @@ class HomeViewController: UIViewController {
         myTableView.dataSource = self
         myTableView.register(UINib(nibName:"ListWorkTableViewCell", bundle: nil), forCellReuseIdentifier: "ListWorkTableViewCell")
         myTableView.reloadData()
+        self.showLoading(isShow: true)
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -34,6 +35,7 @@ class HomeViewController: UIViewController {
             print(response)
             self?.listItem = response
             self?.myTableView.reloadData()
+            self?.showLoading(isShow: false)
         }
     }
 }
@@ -72,6 +74,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         ManagerWorkServices.shared.deleteListWork(id: listItem[indexPath.row].id) {[weak self] status in
             if status {
                 self?.fetchData()
+                self?.showLoading(isShow: true)
             } else {
                 let alert = UIAlertController(title: "Lỗi", message: "Xoá thất bại", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default))

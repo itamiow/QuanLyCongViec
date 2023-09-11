@@ -37,7 +37,6 @@ class CreateNoteViewController: UIViewController {
         createButton.layer.cornerRadius = self.createButton.frame.height/2
         createButton.layer.borderColor = UIColor.white.cgColor
         createButton.layer.borderWidth = 2
-        timeView.layer.cornerRadius = 5
         noteTextView.layer.cornerRadius = 5
         colorPriorityView.layer.cornerRadius = self.colorPriorityView.frame.height/2
         colorPriorityView.backgroundColor = UIColor(hex: "E3EFFF")
@@ -113,12 +112,13 @@ class CreateNoteViewController: UIViewController {
         let remind = remindLabel.text ?? ""
         let note = noteTextView.text ?? ""
         let dateTime = datePickerView.date
-        
+        self.showLoading(isShow: true)
         let dataStore = Firestore.firestore()
         if namework.isEmpty || priority.isEmpty || remind.isEmpty || note.isEmpty {
             let alert = UIAlertController(title: "Lỗi", message: "Hãy nhập thông tin của bạn", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default))
             self.present(alert, animated: true, completion: nil)
+            self.showLoading(isShow: false)
         } else {
             var ref: DocumentReference?
             let email = UserDefaultService.shared.currentEmail ?? ""
@@ -147,6 +147,7 @@ class CreateNoteViewController: UIViewController {
         }
         let alert = UIAlertController(title: "Thông báo", message: "Bạn đã tạo 1 công việc mới", preferredStyle: .alert)
         let actionOK = UIAlertAction(title: "OK", style: .default) {_ in
+            self.showLoading(isShow: false)
             AppDelegate.scene?.routeToHome()
         }
         alert.addAction(actionOK)

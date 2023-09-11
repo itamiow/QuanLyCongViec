@@ -26,10 +26,11 @@ class ChangeUsernameViewController: UIViewController {
     @IBAction func didTapChangeUsername(_ sender: UIButton) {
         let userName = changeUserNameTextField.text ?? ""
         guard let email = UserDefaultService.shared.currentEmail else { return }
-        
+        self.showLoading(isShow: true)
         if userName.isEmpty {
             let message = "Hãy nhập tên mới của bạn"
             showAlert(message: message)
+            showLoading(isShow: false)
             return
         }
         if userName.count < 2 {
@@ -56,6 +57,7 @@ class ChangeUsernameViewController: UIViewController {
             let alert = UIAlertController(title: "Thông báo", message: "Bạn đã đổi tên thành công", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default) {_ in
                 self.confirmChange()
+                self.showLoading(isShow: false)
             })
             self.present(alert, animated: true, completion: nil)
         }
