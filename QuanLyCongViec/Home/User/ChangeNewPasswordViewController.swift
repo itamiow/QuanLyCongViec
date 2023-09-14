@@ -60,10 +60,15 @@ class ChangeNewPasswordViewController: UIViewController {
             return
         }
         
-        self.validationOfTextFields()
+        
         let currentUser = Auth.auth().currentUser
             currentUser?.updatePassword(to: password) { error in
-                if let error = error {
+                if password != confirmPassword {
+                    let message = "Mật khẩu không khớp"
+                    self.showAlert(message: message)
+                    self.showLoading(isShow: false)
+                    return
+                } else if error != nil {
                     print("failure")
                     self.showLoading(isShow: false)
                 } else {
@@ -83,19 +88,7 @@ class ChangeNewPasswordViewController: UIViewController {
         let userVC = storyboard.instantiateViewController(withIdentifier: "UserViewController")
         navigationController?.pushViewController(userVC, animated: true)
     }
-    
-    func validationOfTextFields() -> Bool {
-        var a = false
-        if passwordTextField.text != confirmPasswordTextField.text {
-            let alertController = UIAlertController(title: "Lỗi", message: "Mật khẩu không khớp", preferredStyle: .alert)
-            alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            self.present(alertController, animated: true, completion: nil)
-        } else {
-            a = true
-        }
-        return a
-    }
-    
+
     func showAlert(message: String) {
         let alert = UIAlertController(title: "Thông Báo", message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default))

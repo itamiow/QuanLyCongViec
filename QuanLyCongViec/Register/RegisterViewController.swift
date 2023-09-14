@@ -34,57 +34,68 @@ class RegisterViewController: UIViewController {
         let confirmPassword = confirmPasswordTextField.text ?? ""
         let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
         let emailPredicate = NSPredicate(format:"SELF MATCHES %@", emailRegex)
+        self.showLoading(isShow: true)
         
         if userName.isEmpty && email.isEmpty && password.isEmpty && confirmPassword.isEmpty {
             let message = "Hãy nhập thông tin đầy đủ"
             showAlert(message: message)
+            self.showLoading(isShow: false)
             return
         }
         if userName.isEmpty {
             let message = "Tên người dùng là cần thiết"
             showAlert(message: message)
+            self.showLoading(isShow: false)
             return
         }
         if userName.count < 2 {
             let message = "Tên người dùng phải có ít nhất 2 kí tự"
             showAlert(message: message)
+            self.showLoading(isShow: false)
             return
         }
         if userName.count > 30 {
             let message = "Tên nguời dùng không được quá 30 kí tự"
             showAlert(message: message)
+            self.showLoading(isShow: false)
             return
         }
         
         if email.isEmpty {
             let message = "Email là cần thiết"
             showAlert(message: message)
+            self.showLoading(isShow: false)
             return
         }
         if email.isEmpty || !emailPredicate.evaluate(with: email) {
             let message = "Định dạng email không hợp lệ"
             showAlert(message: message)
+            self.showLoading(isShow: false)
             return
         }
         
         if password.isEmpty {
             let message = "Mật khẩu là cần thiết"
             showAlert(message: message)
+            self.showLoading(isShow: false)
             return
         }
         if password.count < 6 {
             let message = "Mật khẩu phải có ít nhất 6 kí tự"
             showAlert(message: message)
+            self.showLoading(isShow: false)
             return
         }
         if password.count > 40 {
             let message = "Mật khẩu không được quá 40 kí tự"
             showAlert(message: message)
+            self.showLoading(isShow: false)
             return
         }
         if confirmPassword.isEmpty {
             let message = "Nhập lại mật khẩu là cần thiết"
             showAlert(message: message)
+            self.showLoading(isShow: false)
             return
         }
         
@@ -92,19 +103,15 @@ class RegisterViewController: UIViewController {
     }
     
     private func handleRegister(userName: String, email: String, password: String, confirmpassword: String) {
-        registerButton.isEnabled = false
-        registerButton.setTitle("Xin chờ...", for: .normal)
-        self.showLoading(isShow: true)
         if password != confirmpassword {
-            self.validationOfTextFields()
-            registerButton.isEnabled = true
-            registerButton.setTitle("Đăng ký", for: .normal)
+            let message = "Mật khẩu không khớp"
+            showAlert(message: message)
             self.showLoading(isShow: false)
+            return
         } else {
             Auth.auth().createUser(withEmail: email, password: password) {[weak self] authResult, err in
+                self?.showLoading(isShow: false)
                 guard let strongSelf = self else { return }
-                self?.registerButton.isEnabled = true
-                self?.registerButton.setTitle("Đăng ký", for: .normal)
                 guard err == nil else {
                     var message = ""
                     switch AuthErrorCode.Code(rawValue: err!._code) {
@@ -131,19 +138,7 @@ class RegisterViewController: UIViewController {
             }
         }
     }
-    
-    func validationOfTextFields() -> Bool {
-        var a = false
-        if passwordTextField.text != confirmPasswordTextField.text {
-            let alertController = UIAlertController(title: "Lỗi", message: "Mật khẩu không khớp", preferredStyle: .alert)
-            alertController.addAction(UIAlertAction(title: "OK", style: .default))
-            self.present(alertController, animated: true)
-        } else {
-            a = true
-        }
-        return a
-    }
-    
+
     func showAlert(message: String) {
         let alert = UIAlertController(title: "Thông báo", message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default))

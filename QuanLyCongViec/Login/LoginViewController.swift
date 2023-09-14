@@ -48,52 +48,54 @@ class LoginViewController: UIViewController {
         let password = passwordTexField.text ?? ""
         let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
         let emailPredicate = NSPredicate(format:"SELF MATCHES %@", emailRegex)
-        
+        self.showLoading(isShow: true)
         if email.isEmpty && password.isEmpty {
             let message = "Hãy nhập thông tin đầy đủ"
             showAlert(message: message)
+            self.showLoading(isShow: false)
             return
         }
         if email.isEmpty {
             let message = "Email là cần thiết"
             showAlert(message: message)
+            self.showLoading(isShow: false)
             return
         }
         
         if email.isEmpty ||  !emailPredicate.evaluate(with: email) {
             let message = "Định dạng email là không hợp lệ"
             showAlert(message: message)
+            self.showLoading(isShow: false)
             return
         }
         
         if password.isEmpty {
             let message = "Mật khẩu là cần thiết"
             showAlert(message: message)
+            self.showLoading(isShow: false)
             return
         }
         if password.count < 6 {
             let message = "Mật khẩu ít nhất phải có 6 kí tự trở lên"
             showAlert(message: message)
+            self.showLoading(isShow: false)
             return
         }
         
         if password.count > 40 {
             let message = "Mật khẩu không được quá 40 kí tự"
             showAlert(message: message)
+            self.showLoading(isShow: false)
             return
         }
         handleLogin(email: email, password: password)
     }
     
     private func handleLogin(email: String, password: String) {
-        loginButton.isEnabled = false
-        loginButton.setTitle("Xin chờ...", for: .normal)
         self.showLoading(isShow: true)
         Auth.auth().signIn(withEmail: email, password: password) {[weak self] authResult, err in
-            guard let strongSelf = self else { return }
-            self?.loginButton.isEnabled = true
-            self?.loginButton.setTitle("Đăng nhập", for: .normal)
             self?.showLoading(isShow: false)
+            guard let strongSelf = self else { return }
             guard err == nil else {
                 var message = ""
                 switch AuthErrorCode.Code(rawValue: err!._code) {
@@ -105,6 +107,7 @@ class LoginViewController: UIViewController {
                 let alert = UIAlertController(title: "Lỗi", message: message, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default))
                 self?.present(alert, animated: true)
+                self?.showLoading(isShow: false)
                 return
                 
             }
