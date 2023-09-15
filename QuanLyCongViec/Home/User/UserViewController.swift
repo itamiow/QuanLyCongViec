@@ -178,7 +178,6 @@ class UserViewController: UIViewController {
                     DispatchQueue.main.async {
                         strongSelf.emailLabel.text = email
                         strongSelf.userNameLabel.text = userName
-//                        self?.userNameLabel.text = userName
                         if let image = image {
                             strongSelf.avatarImage.kf.setImage(with: URL(string: image))
                         }

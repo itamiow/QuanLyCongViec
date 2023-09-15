@@ -20,7 +20,7 @@
 		7145DF1D2A69882500C943B7 /* ListWorkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7145DF1B2A69882500C943B7 /* ListWorkTableViewCell.xib */; };
 		7145DF1F2A6A2D5B00C943B7 /* ChangeUsernameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7145DF1E2A6A2D5B00C943B7 /* ChangeUsernameViewController.swift */; };
 		7145DF232A6A325900C943B7 /* ChangeNewPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7145DF222A6A325900C943B7 /* ChangeNewPasswordViewController.swift */; };
-		714A12802AA9B9D1004CAE4C /* ShowLoading+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714A127F2AA9B9D1004CAE4C /* ShowLoading+Extension.swift */; };
+		714A12802AA9B9D1004CAE4C /* ShowLoading+ShowAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714A127F2AA9B9D1004CAE4C /* ShowLoading+ShowAlert.swift */; };
 		715095212A6BD59F007317BA /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715095202A6BD59F007317BA /* EditViewController.swift */; };
 		7150954A2A6D35A9007317BA /* ManagerWorkServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715095492A6D35A9007317BA /* ManagerWorkServices.swift */; };
 		7150954E2A6D7814007317BA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7150954D2A6D7813007317BA /* GoogleService-Info.plist */; };
@@ -56,7 +56,7 @@
 		7145DF1B2A69882500C943B7 /* ListWorkTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ListWorkTableViewCell.xib; sourceTree = "<group>"; };
 		7145DF1E2A6A2D5B00C943B7 /* ChangeUsernameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeUsernameViewController.swift; sourceTree = "<group>"; };
 		7145DF222A6A325900C943B7 /* ChangeNewPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeNewPasswordViewController.swift; sourceTree = "<group>"; };
-		714A127F2AA9B9D1004CAE4C /* ShowLoading+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ShowLoading+Extension.swift"; sourceTree = "<group>"; };
+		714A127F2AA9B9D1004CAE4C /* ShowLoading+ShowAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ShowLoading+ShowAlert.swift"; sourceTree = "<group>"; };
 		715095202A6BD59F007317BA /* EditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
 		715095492A6D35A9007317BA /* ManagerWorkServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerWorkServices.swift; sourceTree = "<group>"; };
 		7150954D2A6D7813007317BA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -96,7 +96,7 @@
 			isa = PBXGroup;
 			children = (
 				71F9C7212A683CC2007EAE78 /* UIColor+Extension.swift */,
-				714A127F2AA9B9D1004CAE4C /* ShowLoading+Extension.swift */,
+				714A127F2AA9B9D1004CAE4C /* ShowLoading+ShowAlert.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -402,7 +402,7 @@
 				7145DF1F2A6A2D5B00C943B7 /* ChangeUsernameViewController.swift in Sources */,
 				71F9C70B2A683BAF007EAE78 /* AppDelegate.swift in Sources */,
 				7150954A2A6D35A9007317BA /* ManagerWorkServices.swift in Sources */,
-				714A12802AA9B9D1004CAE4C /* ShowLoading+Extension.swift in Sources */,
+				714A12802AA9B9D1004CAE4C /* ShowLoading+ShowAlert.swift in Sources */,
 				7145DEF72A6925D700C943B7 /* RegisterViewController.swift in Sources */,
 				71F9C7222A683CC2007EAE78 /* UIColor+Extension.swift in Sources */,
 				7139749C2A701AC60023A87E /* UserDefaultServices.swift in Sources */,

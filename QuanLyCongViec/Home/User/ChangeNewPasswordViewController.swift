@@ -42,21 +42,25 @@ class ChangeNewPasswordViewController: UIViewController {
         if password.isEmpty {
             let message = "Mật khẩu là cần thiết"
             showAlert(message: message)
+            showLoading(isShow: false)
             return
         }
         if password.count < 6 {
             let message = "Mật khẩu phải có ít nhất 6 kí tự"
             showAlert(message: message)
+            showLoading(isShow: false)
             return
         }
         if password.count > 40 {
             let message = "Mật khẩu không được quá 40 kí tự"
             showAlert(message: message)
+            showLoading(isShow: false)
             return
         }
         if confirmPassword.isEmpty {
             let message = "Nhập lại mật khẩu là cần thiết"
             showAlert(message: message)
+            showLoading(isShow: false)
             return
         }
         
@@ -88,11 +92,4 @@ class ChangeNewPasswordViewController: UIViewController {
         let userVC = storyboard.instantiateViewController(withIdentifier: "UserViewController")
         navigationController?.pushViewController(userVC, animated: true)
     }
-
-    func showAlert(message: String) {
-        let alert = UIAlertController(title: "Thông Báo", message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
-        self.present(alert, animated: true)
-    }
-    
 }

@@ -104,7 +104,7 @@ class LoginViewController: UIViewController {
                 default:
                     message = "Email chưa đúng! Vui lòng nhập lại"
                 }
-                let alert = UIAlertController(title: "Lỗi", message: message, preferredStyle: .alert)
+                let alert = UIAlertController(title: "Thông báo", message: message, preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default))
                 self?.present(alert, animated: true)
                 self?.showLoading(isShow: false)
@@ -115,11 +115,5 @@ class LoginViewController: UIViewController {
             UserDefaultService.shared.currentEmail = email
             UserDefaultService.shared.isLoggedIn = true
         }
-    }
-    
-    func showAlert(message:String) {
-        let alert = UIAlertController(title: "Thông báo", message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
-        self.present(alert, animated: true, completion: nil)
     }
 }

@@ -53,10 +53,10 @@ class EditViewController: UIViewController {
         let dateTime = datePickerView.date
         
         let dataStore = Firestore.firestore()
-        if namework.isEmpty || priority.isEmpty || remind.isEmpty || note.isEmpty {
-            let alert = UIAlertController(title: "Lỗi", message: "Hãy nhập thông tin của bạn", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default))
-            self.present(alert, animated: true, completion: nil)
+        if namework.isEmpty || note.isEmpty {
+            let message = "Hãy nhập thông tin của bạn"
+            showAlert(message: message)
+            return
         } else {
             let email = UserDefaultService.shared.currentEmail ?? ""
             dataStore.collection("users")

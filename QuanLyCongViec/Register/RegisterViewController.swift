@@ -122,7 +122,7 @@ class RegisterViewController: UIViewController {
                     default:
                         message = "Lỗi không xác định"
                     }
-                    let alert = UIAlertController(title: "Lỗi", message: message, preferredStyle: .alert)
+                    let alert = UIAlertController(title: "Thông báo", message: message, preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "OK", style: .default))
                     self?.present(alert, animated: true)
                     return
@@ -137,12 +137,6 @@ class RegisterViewController: UIViewController {
                 self?.present(showAlert, animated: true)
             }
         }
-    }
-
-    func showAlert(message: String) {
-        let alert = UIAlertController(title: "Thông báo", message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
-        self.present(alert, animated: true, completion: nil)
     }
     
     @IBAction func didTapLogin(_ sender: UIButton) {

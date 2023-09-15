@@ -114,10 +114,10 @@ class CreateNoteViewController: UIViewController {
         let dateTime = datePickerView.date
         self.showLoading(isShow: true)
         let dataStore = Firestore.firestore()
-        if namework.isEmpty || priority.isEmpty || remind.isEmpty || note.isEmpty {
-            let alert = UIAlertController(title: "Lỗi", message: "Hãy nhập thông tin của bạn", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default))
-            self.present(alert, animated: true, completion: nil)
+        if namework.isEmpty || note.isEmpty {
+            let message = "Hãy nhập thông tin của bạn"
+            showAlert(message: message)
+            return
             self.showLoading(isShow: false)
         } else {
             var ref: DocumentReference?

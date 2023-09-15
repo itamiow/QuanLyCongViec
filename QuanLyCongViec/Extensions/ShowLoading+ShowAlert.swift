@@ -19,3 +19,11 @@ extension UIViewController {
         }
     }
 }
+
+extension UIViewController {
+    func showAlert(message: String) {
+        let alert = UIAlertController(title: "Thông báo", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        self.present(alert, animated: true)
+    }
+}

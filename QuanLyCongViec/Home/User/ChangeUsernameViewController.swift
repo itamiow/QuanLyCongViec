@@ -67,10 +67,4 @@ class ChangeUsernameViewController: UIViewController {
         let userVC = storyboard.instantiateViewController(withIdentifier: "UserViewController")
         navigationController?.pushViewController(userVC, animated: true)
     }
-    
-    func showAlert(message: String) {
-        let alert = UIAlertController(title: "Thông báo", message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
-        self.present(alert, animated: true)
-    }
 }
