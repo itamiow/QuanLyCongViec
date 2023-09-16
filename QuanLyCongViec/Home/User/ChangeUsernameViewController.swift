@@ -36,11 +36,13 @@ class ChangeUsernameViewController: UIViewController {
         if userName.count < 2 {
             let message = "Tên người dùng phải có ít nhất 2 kí tự"
             showAlert(message: message)
+            showLoading(isShow: false)
             return
         }
         if userName.count > 30 {
             let message = "Tên nguời dùng không được quá 30 kí tự"
             showAlert(message: message)
+            showLoading(isShow: false)
             return
         }
         

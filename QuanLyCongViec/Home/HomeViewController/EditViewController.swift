@@ -51,11 +51,12 @@ class EditViewController: UIViewController {
         let remind = remindLabel.text ?? ""
         let note = noteTexView.text ?? ""
         let dateTime = datePickerView.date
-        
+        showLoading(isShow: true)
         let dataStore = Firestore.firestore()
         if namework.isEmpty || note.isEmpty {
             let message = "Hãy nhập thông tin của bạn"
             showAlert(message: message)
+            showLoading(isShow: false)
             return
         } else {
             let email = UserDefaultService.shared.currentEmail ?? ""

@@ -112,13 +112,14 @@ class CreateNoteViewController: UIViewController {
         let remind = remindLabel.text ?? ""
         let note = noteTextView.text ?? ""
         let dateTime = datePickerView.date
-        self.showLoading(isShow: true)
+        showLoading(isShow: true)
         let dataStore = Firestore.firestore()
         if namework.isEmpty || note.isEmpty {
             let message = "Hãy nhập thông tin của bạn"
             showAlert(message: message)
+            showLoading(isShow: false)
             return
-            self.showLoading(isShow: false)
+            
         } else {
             var ref: DocumentReference?
             let email = UserDefaultService.shared.currentEmail ?? ""

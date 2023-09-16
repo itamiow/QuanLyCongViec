@@ -15,7 +15,6 @@ class ForgotPasswordViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "Quên mật khẩu"
         confirmButton.layer.cornerRadius = self.confirmButton.frame.height/2
         confirmButton.layer.borderColor = UIColor.white.cgColor
         confirmButton.layer.borderWidth = 2
@@ -24,7 +23,7 @@ class ForgotPasswordViewController: UIViewController {
     
     @IBAction func didTapConfirmChange(_ sender: UIButton) {
         let email = emailTextField.text ?? ""
-        self.showLoading(isShow: true)
+        showLoading(isShow: true)
         Auth.auth().sendPasswordReset(withEmail: email) {[weak self] error in
             guard let self = self else { return }
             self.showLoading(isShow: false)

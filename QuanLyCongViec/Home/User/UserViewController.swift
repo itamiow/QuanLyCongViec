@@ -223,9 +223,6 @@ extension UserViewController: UIImagePickerControllerDelegate, UINavigationContr
                 .document(currentEmail)
                 .setData(["image": urlString!], merge: true)
         }
-        DispatchQueue.main.async {
-            self.avatarImage.image = selectedImage
-        }
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
