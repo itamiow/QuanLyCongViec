@@ -23,7 +23,7 @@ class ListWorkTableViewCell: UITableViewCell {
     var checkbox: Bool = false {
         didSet {
             if !checkbox {
-                checkworkImage.image = UIImage(named: "dry-clean")
+                checkworkImage.image = UIImage(named: "uncheckmark")
                 workStatusLabel.text = "Chưa hoàn thành"
                 myView.backgroundColor = UIColor.white
             } else {
