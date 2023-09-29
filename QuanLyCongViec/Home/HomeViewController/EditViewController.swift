@@ -53,7 +53,7 @@ class EditViewController: UIViewController {
         let dateTime = datePickerView.date
         showLoading(isShow: true)
         let dataStore = Firestore.firestore()
-        if namework.isEmpty || note.isEmpty {
+        if namework.isEmpty {
             let message = "Hãy nhập thông tin của bạn"
             showAlert(message: message)
             showLoading(isShow: false)

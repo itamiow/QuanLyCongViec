@@ -14,7 +14,8 @@ class CustomStyleTabBarContentView: ESTabBarItemContentView {
         textColor = UIColor.black
         iconColor = UIColor.black
         highlightTextColor = UIColor.systemBlue
-        highlightIconColor = UIColor.systemBlue    }
+        highlightIconColor = UIColor.systemBlue
+    }
     
     public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

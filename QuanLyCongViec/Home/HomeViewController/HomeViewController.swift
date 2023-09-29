@@ -15,12 +15,15 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var emptyView: UIView!
 
     var listItem: [WorkItem] = []
+    var originList: [WorkItem] = []
+
     var model: WorkItem?
     override func viewDidLoad() {
         super.viewDidLoad()
         emptyView.isHidden = true
         myTableView.delegate = self
         myTableView.dataSource = self
+        myTableView.backgroundColor = UIColor(hex: "E3EFFF")
         myTableView.register(UINib(nibName:"ListWorkTableViewCell", bundle: nil), forCellReuseIdentifier: "ListWorkTableViewCell")
         myTableView.reloadData()
         self.showLoading(isShow: true)
@@ -30,12 +33,43 @@ class HomeViewController: UIViewController {
          fetchData()
     }
     
-    private func fetchData() {
+    private func fetchData(completion: (() -> Void)? = nil) {
         ManagerWorkServices.shared.getListWork {[weak self] response in
             print(response)
+            self?.originList = response
             self?.listItem = response
             self?.myTableView.reloadData()
             self?.showLoading(isShow: false)
+            completion?()
+        }
+    }
+    
+    @IBAction func didTapSegment(_ sender: UISegmentedControl) {
+        if sender.selectedSegmentIndex == 0 {
+            fetchData(completion: {[weak self] in
+                DispatchQueue.main.async { [weak self] in
+                    guard let self = self else { return }
+                    self.listItem = self.originList
+                    self.myTableView.reloadData()
+                }
+            })
+        } else if sender.selectedSegmentIndex == 1 {
+            fetchData(completion: {[weak self] in
+                DispatchQueue.main.async { [weak self] in
+                    guard let self = self else { return }
+                    self.listItem = self.originList.filter { $0.isComplete == false }
+                    self.myTableView.reloadData()
+                   
+                }
+            })
+        } else if sender.selectedSegmentIndex == 2 {
+            fetchData(completion: {[weak self] in
+                DispatchQueue.main.async { [weak self] in
+                    guard let self = self else { return }
+                    self.listItem = self.originList.filter { $0.isComplete == true }
+                    self.myTableView.reloadData()
+                }
+            })
         }
     }
 }

@@ -28,6 +28,7 @@ class NointernetViewController: UIViewController {
     
     
     @IBAction func didTapRetry(_ sender: UIButton) {
+        print("noInternet")
         if NetworkMonitor.shared.isReachable {
             let isCompletedTutorial = UserDefaultService.shared.completedTutorial
             let isLoggedIn = UserDefaultService.shared.isLoggedIn

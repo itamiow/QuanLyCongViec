@@ -39,9 +39,9 @@ class ScreenLetsgoViewController: UIViewController {
     @IBAction func didTapStartButton(_ sender: UIButton) {
         UserDefaultService.shared.completedTutorial = true
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let letsgoVC = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+        let loginVC = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
         guard let window = (UIApplication.shared.delegate as? AppDelegate)?.window else { return}
-        let nv = UINavigationController(rootViewController: letsgoVC)
+        let nv = UINavigationController(rootViewController: loginVC)
         nv.setNavigationBarHidden(true, animated: true)
         window.rootViewController = nv
         window.makeKeyAndVisible()
